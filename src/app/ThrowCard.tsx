@@ -1,12 +1,21 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import Card, { CardState } from "./Card";
 import CardFace from "./CardFace";
-import dancingDucks from "../../public/dance.png";
+import dancingDucksImg from "../../public/dance.png";
+import dartImg from "../../public/dart.png";
+import thumbUpImg from "../../public/thumb-up.png";
 
 import { Fredoka } from "@next/font/google";
+import styles from "./ThrowCard.module.css";
+import RoundButton from "./RoundButton";
 
+export interface IThrowProps {
+  task: ReactNode;
+  winScore: number;
+  arrowText: string;
+}
 // If loading a variable font, you don't need to specify the font weight
 const fredokaFont = Fredoka({
   subsets: ["latin"],
@@ -14,37 +23,62 @@ const fredokaFont = Fredoka({
   display: "optional",
 });
 
-export function ThrowCardFace() {
+function ThrowCardBack() {
   return (
     <CardFace
+      className={fredokaFont.className}
       style={{
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "3rem",
         background: "#f8f8f8",
       }}
     >
-      <div
+      <div style={{ margin: "2rem 0 2rem " }}>Smijtkaart</div>
+      <Image
+        src={dancingDucksImg}
+        alt=""
         style={{
-          textAlign: "center",
+          width: "calc(100% - 20px)",
+          height: "auto",
+          margin: "auto",
         }}
-      >
-        <div
-          className={fredokaFont.className}
-          style={{
-            fontWeight: "bold",
-            margin: "2rem 0 2rem ",
-            textAlign: "center",
-            fontSize: "3rem",
-          }}
-        >
-          Smijtkaart
-        </div>
+      />
+    </CardFace>
+  );
+}
+
+function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
+  return (
+    <CardFace
+      className={`${styles["throw-card"]} ${fredokaFont.className}`}
+      style={{
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "2rem",
+        background: "#f8f8f8",
+      }}
+    >
+      <div className={styles["throw-card_task"]}>{task}</div>
+      <div className={styles["throw-card_score"]}>
+        <RoundButton>
+          <Image
+            src={thumbUpImg}
+            alt=""
+            style={{ height: "2rem", width: "auto" }}
+          />
+        </RoundButton>{" "}
+        = {winScore < 0 ? "-" : "+"} {winScore}
+      </div>
+      <div className={styles["throw-card_darts"]}>
+        {arrowText}
         <Image
-          src={dancingDucks}
+          src={dartImg}
           alt=""
           style={{
-            width: "calc(100% - 20px)",
+            width: "1.15rem",
             height: "auto",
             margin: "auto",
-            textAlign: "center",
           }}
         />
       </div>
@@ -52,12 +86,12 @@ export function ThrowCardFace() {
   );
 }
 
-export default function ThrowCard() {
+export default function ThrowCard(props: IThrowProps) {
   const [cardState, setCardState] = useState<CardState>("unused");
   return (
     <Card
-      frontFace={<CardFace style={{ background: "green" }}>BACK</CardFace>}
-      backFace={<ThrowCardFace />}
+      frontFace={<ThrowCardFront {...props} />}
+      backFace={<ThrowCardBack />}
       state={cardState}
       onClick={() => {
         setCardState((prev) => {

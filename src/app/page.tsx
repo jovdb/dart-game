@@ -3,6 +3,17 @@ import ThrowCard from "./ThrowCard";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const cardInfo = {
+    winScore: 2,
+    arrowText: "max 6",
+    task: (
+      <>
+        Gooi <br />
+        D19
+      </>
+    ),
+  };
+
   return (
     <>
       <div
@@ -13,7 +24,7 @@ export default function Home() {
           height: "100%",
         }}
       >
-        <ThrowCard />
+        <ThrowCard {...cardInfo}/>
       </div>
     </>
   );

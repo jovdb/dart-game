@@ -1,0 +1,27 @@
+.throw-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.throw-card_task {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.throw-card_score {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.throw-card_darts {
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-family: "Arial";
+  margin: 0.2rem;
+}
