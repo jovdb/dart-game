@@ -11,11 +11,13 @@ import { Fredoka } from "@next/font/google";
 import styles from "./ThrowCard.module.css";
 import RoundButton from "./RoundButton";
 
-export interface IThrowProps {
+interface IThrowProps {
   task: ReactNode;
   winScore: number;
   arrowText: string;
+  onNewCard(): unknown;
 }
+
 // If loading a variable font, you don't need to specify the font weight
 const fredokaFont = Fredoka({
   subsets: ["latin"],
@@ -25,16 +27,12 @@ const fredokaFont = Fredoka({
 
 export function ThrowCardBack() {
   return (
-    <CardFace
-      className={fredokaFont.className}
-      style={{
-        textAlign: "center",
-        fontWeight: "bold",
-        fontSize: "3rem",
-        background: "#f8f8f8",
-      }}
-    >
-      <div style={{ margin: "2rem 0 2rem " }}>Smijtkaart</div>
+    <CardFace className={fredokaFont.className}>
+      <div
+        style={{ margin: "0.5em 0 0.2em 0", textAlign: "center", fontSize: "5em", fontWeight: "bold" }}
+      >
+        Smijtkaart
+      </div>
       <Image
         src={dancingDucksImg}
         alt=""
@@ -55,7 +53,7 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
       style={{
         textAlign: "center",
         fontWeight: "bold",
-        fontSize: "2rem",
+        fontSize: "2em",
         background: "#f8f8f8",
       }}
     >
@@ -65,7 +63,7 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
           <Image
             src={thumbUpImg}
             alt=""
-            style={{ height: "2rem", width: "auto" }}
+            style={{ height: "2em", width: "auto" }}
           />
         </RoundButton>{" "}
         = {winScore < 0 ? "-" : "+"} {winScore}
@@ -76,9 +74,10 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
           src={dartImg}
           alt=""
           style={{
-            width: "1.15rem",
+            width: "0.85em",
             height: "auto",
             margin: "auto",
+            transform: "translateY(3px)",
           }}
         />
       </div>
@@ -95,6 +94,9 @@ export default function ThrowCard(props: IThrowProps) {
       state={cardState}
       onClick={(newState) => {
         setCardState(newState);
+        if (newState === "flipped") {
+          props.onNewCard();
+        }
       }}
       showDeck
     ></Card>

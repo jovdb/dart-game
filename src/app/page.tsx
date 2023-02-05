@@ -1,18 +1,10 @@
-import Image from "next/image";
+"use client";
 import ThrowCard from "./ThrowCard";
-import styles from "./page.module.css";
+import { useCards, useCardsActions } from "@/stores/cardState";
 
 export default function Home() {
-  const cardInfo = {
-    winScore: 2,
-    arrowText: "max 6",
-    task: (
-      <>
-        Gooi <br />
-        D19
-      </>
-    ),
-  };
+  const cardInfo = useCards((s) => s.currentCard);
+  const { nextRandom } = useCardsActions();
 
   return (
     <>
@@ -24,7 +16,12 @@ export default function Home() {
           height: "100%",
         }}
       >
-        <ThrowCard {...cardInfo}/>
+        <ThrowCard
+          {...cardInfo}
+          onNewCard={() => {
+            nextRandom();
+          }}
+        />
       </div>
     </>
   );
