@@ -1,0 +1,34 @@
+.card {
+  --size: 200px;
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  perspective-origin: 50% 50%;
+  transform: perspective(1000px);
+}
+
+.card_front {
+  position: absolute;
+  min-width: var(--size);
+  backface-visibility: hidden;
+}
+
+.card_back {
+  position: absolute;
+  min-width: var(--size);
+  backface-visibility: hidden;
+  transform: rotateY(-180deg);
+}
+
+
+.card--unused {
+  transform: rotateY(-180deg);
+}
+
+.card--using {
+  transform: rotateY(0deg);
+}
+
+.card--used {
+  transform: rotateY(-180deg);
+}
