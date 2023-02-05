@@ -1,9 +1,8 @@
 .card-face {
-  --size: 100px;
-
+  --size: 200px;
   border-radius: calc(var(--size) * 0.05);
   border: calc(var(--size) * 0.005) solid #666;
-  box-shadow: calc(var(--size) * 0.01) calc(var(--size) * 0.01) calc(var(--size) * 0.03) rgba(0, 0, 0, 0.3);
+  /* box-shadow: calc(var(--size) * 0.01) calc(var(--size) * 0.01) calc(var(--size) * 0.03) rgba(0, 0, 0, 0.3); */ 
   position: absolute;
   width: auto;
   height: auto;

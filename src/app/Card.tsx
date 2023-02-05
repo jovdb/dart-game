@@ -6,15 +6,23 @@ export default function Card({
   frontFace,
   backFace,
   state,
+  onClick,
 }: {
   frontFace: ReactNode;
   backFace: ReactNode;
   state: CardState;
+  onClick: () => unknown;
 }) {
   return (
-    <div className={`${styles.card} card--${state}`}>
-      <div className={styles["card_back"]}>{backFace}</div>
-      <div className={styles["card_front"]}>{frontFace}</div>
+    <div className={`${styles.card} ${styles[`card--${state}`]}`}>
+      <div className={styles["card_group"]}>
+        <div className={styles["card_back"]} onClick={onClick}>
+          {backFace}
+        </div>
+        <div className={styles["card_front"]} onClick={onClick}>
+          {frontFace}
+        </div>
+      </div>
     </div>
   );
 }
