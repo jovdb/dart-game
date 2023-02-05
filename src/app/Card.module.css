@@ -11,18 +11,18 @@
   position: absolute;
   min-width: var(--size);
   backface-visibility: hidden;
+  transform: rotateY(-180deg);
 }
 
 .card_back {
   position: absolute;
   min-width: var(--size);
   backface-visibility: hidden;
-  transform: rotateY(-180deg);
 }
 
 
 .card--unused {
-  transform: rotateY(-180deg);
+  transform: rotateY(0deg);
 }
 
 .card--using {
