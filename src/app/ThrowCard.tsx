@@ -23,7 +23,7 @@ const fredokaFont = Fredoka({
   display: "optional",
 });
 
-function ThrowCardBack() {
+export function ThrowCardBack() {
   return (
     <CardFace
       className={fredokaFont.className}
@@ -87,19 +87,16 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
 }
 
 export default function ThrowCard(props: IThrowProps) {
-  const [cardState, setCardState] = useState<CardState>("unused");
+  const [cardState, setCardState] = useState<CardState>("top");
   return (
     <Card
       frontFace={<ThrowCardFront {...props} />}
       backFace={<ThrowCardBack />}
       state={cardState}
-      onClick={() => {
-        setCardState((prev) => {
-          if (prev === "unused") return "using";
-          if (prev === "using") return "used";
-          return "unused";
-        });
+      onClick={(newState) => {
+        setCardState(newState);
       }}
+      showDeck
     ></Card>
   );
 }
