@@ -17,7 +17,7 @@ export default function Card({
   state: CardState;
   onClick: (newState: CardState) => unknown;
 }) {
-  const animationDuration = 200 * (showDeck && (state === "bottom") ? 1.5 : 1);
+  const animationDuration = 500 * (showDeck && (state === "bottom") ? 1.5 : 1);
   const style = {
     "--animation-duration": `${animationDuration}ms`,
   } as React.CSSProperties;

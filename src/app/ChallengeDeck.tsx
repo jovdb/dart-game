@@ -3,15 +3,15 @@ import Image from "next/image";
 import { ReactNode, useState } from "react";
 import Card, { CardState } from "./Card";
 import CardFace from "./CardFace";
-import dancingDucksImg from "../../public/dance.png";
 import dartImg from "../../public/dart.png";
 import thumbUpImg from "../../public/thumb-up.png";
 
 import { Fredoka } from "@next/font/google";
-import styles from "./ThrowCard.module.css";
+import styles from "./ChallengeDeck.module.css";
 import RoundButton from "./RoundButton";
+import { CardBack } from "./CardBack";
 
-interface IThrowProps {
+interface IChallengeProps {
   task: ReactNode;
   winScore: number;
   arrowText: string;
@@ -25,31 +25,10 @@ const fredokaFont = Fredoka({
   display: "optional",
 });
 
-export function ThrowCardBack() {
-  return (
-    <CardFace className={fredokaFont.className}>
-      <div
-        style={{ margin: "0.5em 0 0.2em 0", textAlign: "center", fontSize: "5em", fontWeight: "bold" }}
-      >
-        Smijtkaart
-      </div>
-      <Image
-        src={dancingDucksImg}
-        alt=""
-        style={{
-          width: "calc(100% - 20px)",
-          height: "auto",
-          margin: "auto",
-        }}
-      />
-    </CardFace>
-  );
-}
-
-function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
+function ChallengeCardFront({ task, winScore, arrowText }: IChallengeProps) {
   return (
     <CardFace
-      className={`${styles["throw-card"]} ${fredokaFont.className}`}
+      className={`${styles["challenge-card"]} ${fredokaFont.className}`}
       style={{
         textAlign: "center",
         fontWeight: "bold",
@@ -57,8 +36,8 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
         background: "#f8f8f8",
       }}
     >
-      <div className={styles["throw-card_task"]}>{task}</div>
-      <div className={styles["throw-card_score"]}>
+      <div className={styles["challenge-card_task"]}>{task}</div>
+      <div className={styles["challenge-card_score"]}>
         <RoundButton>
           <Image
             src={thumbUpImg}
@@ -68,7 +47,7 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
         </RoundButton>{" "}
         = {winScore < 0 ? "-" : "+"} {winScore}
       </div>
-      <div className={styles["throw-card_darts"]}>
+      <div className={styles["challenge-card_darts"]}>
         {arrowText}
         <Image
           src={dartImg}
@@ -85,12 +64,17 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
   );
 }
 
-export default function ThrowCard(props: IThrowProps) {
+export default function ChallengeDeck(props: IChallengeProps) {
   const [cardState, setCardState] = useState<CardState>("top");
   return (
     <Card
-      frontFace={<ThrowCardFront {...props} />}
-      backFace={<ThrowCardBack />}
+      frontFace={<ChallengeCardFront {...props} />}
+      backFace={
+        <CardBack
+          title="Challange"
+          backgroundColor="#bdffc9"
+        />
+      }
       state={cardState}
       onClick={(newState) => {
         setCardState(newState);

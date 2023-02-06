@@ -12,23 +12,37 @@ export interface IThrowCard {
 const initialCardIndex = 0; 
 
 export const useCards = create<{
-  currentIndex: number,
-  currentCard: IThrowCard,
+  currentThrowIndex: number,
+  currentThrowCard: IThrowCard,
 
+  currentChallengeIndex: number,
+  currentChallengeCard: IThrowCard,
+  
   actions: {
-    nextRandom(): void,
+    nextThrowCard(): void,
+    nextChallengeCard(): void,
   }
 
 }>((set) => ({
-  currentIndex: initialCardIndex,
-  currentCard: cardData[initialCardIndex],
+  currentThrowIndex: initialCardIndex,
+  currentThrowCard: cardData[initialCardIndex],
+
+  currentChallengeIndex: initialCardIndex,
+  currentChallengeCard: cardData[initialCardIndex],
 
   actions: {
-    nextRandom() {
-      const currentIndex = Math.floor(Math.random() * cardData.length); 
+    nextThrowCard() {
+      const currentThrowIndex = Math.floor(Math.random() * cardData.length); 
       set({
-        currentIndex,
-        currentCard: cardData[currentIndex],
+        currentThrowIndex,
+        currentThrowCard: cardData[currentThrowIndex],
+      });
+    },
+    nextChallengeCard() {
+      const currentChallengeIndex = Math.floor(Math.random() * cardData.length); 
+      set({
+        currentChallengeIndex,
+        currentChallengeCard: cardData[currentChallengeIndex],
       });
     },
   }
