@@ -1,5 +1,5 @@
 .card {
-  --card-height: calc(100vh - 200px);
+  --card-height: calc(100vh - 300px);
   --animation-duration: 500ms;
 
   position: relative;
@@ -9,6 +9,9 @@
   width: calc(var(--card-height) * 64 / 89);
   font-size: calc(var(--card-height) * 0.02);
   user-select: none;
+
+  box-shadow: calc(var(--card-height) * 0.01) calc(var(--card-height) * 0.05) calc(var(--card-height) * 0.05) rgb(0 0 0 / 20%);
+  border-radius: calc(var(--card-height) * 0.05);
 }
 
 .card_move {

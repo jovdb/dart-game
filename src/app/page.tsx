@@ -43,14 +43,16 @@ export default function Home() {
             }}
           />
         </span>
-        <span style={{ margin: 20 }}>
-          <ThrowDeck
-            {...throwCardInfo}
-            onNewCard={() => {
-              nextThrowCard();
-            }}
-          />
-        </span>
+        {false && (
+          <span style={{ margin: 20 }}>
+            <ThrowDeck
+              {...throwCardInfo}
+              onNewCard={() => {
+                nextThrowCard();
+              }}
+            />
+          </span>
+        )}
       </div>
       <div>Footer</div>
     </div>

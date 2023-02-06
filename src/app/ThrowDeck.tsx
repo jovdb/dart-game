@@ -33,16 +33,15 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
         textAlign: "center",
         fontWeight: "bold",
         fontSize: "2em",
-        background: "#f8f8f8",
       }}
     >
       <div className={styles["throw-card_task"]}>{task}</div>
       <div className={styles["throw-card_score"]}>
-        <RoundButton>
+        <RoundButton style={{ backgroundColor: "var(--color-green)" }}>
           <Image
             src={thumbUpImg}
             alt=""
-            style={{ height: "2em", width: "auto" }}
+            style={{ height: "calc(var(--card-height) * 0.07)", width: "auto" }}
           />
         </RoundButton>{" "}
         = {winScore < 0 ? "-" : "+"} {winScore}
@@ -70,12 +69,7 @@ export default function ThrowDeck(props: IThrowProps) {
   return (
     <Card
       frontFace={<ThrowCardFront {...props} />}
-      backFace={
-        <CardBack
-          title="SmijtKaart"
-          backgroundColor="#f0c7ff"
-        />
-      }
+      backFace={<CardBack title="SmijtKaart" backgroundColor="#f0c7ff" />}
       state={cardState}
       onClick={(newState) => {
         setCardState(newState);

@@ -1,12 +1,13 @@
-import { IThrowCard } from "./cardState";
+import { ReactNode } from "react";
+import { isChallengeCardData, isThowCardData, CardData } from "./cardState";
 
-export const cardData: IThrowCard[] = [];
+const cardData: CardData[] = [];
 
-function SubTitle({ name }: { name: string }) {
+function SubTitle({ name }: { name: ReactNode }) {
   return (
     <>
       <br />
-      <span style={{ fontSize: "0.7em" }}>{name}</span>
+      <span style={{ fontSize: "0.65em" }}>{name}</span>
     </>
   );
 }
@@ -23,6 +24,8 @@ Array.from(Array(20)).forEach((_, index) => {
     ),
     arrowText: "max 3",
     winScore: 1,
+    loseScore: -2,
+    skipScore: -1,
   });
 
   let name = "";
@@ -41,6 +44,8 @@ Array.from(Array(20)).forEach((_, index) => {
     ),
     arrowText: "max 3",
     winScore: 2,
+    loseScore: -1,
+    skipScore: 0,
   });
 
   name = "";
@@ -56,6 +61,8 @@ Array.from(Array(20)).forEach((_, index) => {
     ),
     arrowText: "max 3",
     winScore: 2,
+    loseScore: -1,
+    skipScore: 0,
   });
 });
 
@@ -71,6 +78,8 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 3,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -83,6 +92,8 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 2,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -95,6 +106,22 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 1,
+  loseScore: -1,
+  skipScore: -1,
+});
+
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <br />
+      &lt; 50
+    </>
+  ),
+  arrowText: "3",
+  winScore: 1,
+  loseScore: -2,
+  skipScore: -1,
 });
 
 // Greather than
@@ -108,6 +135,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 1,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -120,6 +149,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 1,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -132,6 +163,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 2,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -144,6 +177,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 2,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -156,6 +191,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 3,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -168,6 +205,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 3,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -180,6 +219,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 3,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -193,6 +234,8 @@ cardData.push({
   ),
   arrowText: "max 3",
   winScore: 15,
+  loseScore: 0,
+  skipScore: 0,
 });
 
 // Named
@@ -207,6 +250,8 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 2,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -215,12 +260,13 @@ cardData.push({
       Gooi
       <br />
       100
-      <br />
       <SubTitle name={"(Ton)"} />
     </>
   ),
   arrowText: "max 3",
   winScore: 2,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -233,7 +279,9 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 20,
+  winScore: 10,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -247,6 +295,8 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 3,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 // AND
@@ -260,18 +310,29 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 2,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
   task: (
     <>
       Gooi
-      <SubTitle name={"T5, T20, T1"} />
-      <SubTitle name={"(Champagne breakfast)"} />
+      <SubTitle
+        name={
+          <>
+            T5, T20, T1
+            <br />
+            <span style={{ fontSize: "0.7em" }}>(Champagne breakfast)</span>
+          </>
+        }
+      />
     </>
   ),
   arrowText: "3",
-  winScore: 10,
+  winScore: 20,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -284,31 +345,51 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 8,
+  winScore: 5,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
   task: (
     <>
       Gooi
-      <SubTitle name={"T20, T20, 50"} />
-      <SubTitle name={"(Big Fish)"} />
+      <SubTitle
+        name={
+          <>
+            T20, T20, 50
+            <br />
+            (Big Fish)
+          </>
+        }
+      />
     </>
   ),
   arrowText: "3",
   winScore: 25,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
   task: (
     <>
       Gooi
-      <SubTitle name={"20, T20, D20"} />
-      <SubTitle name={"(Big Shangai)"} />
+      <SubTitle
+        name={
+          <>
+            20, T20, D20
+            <br />
+            (Big Shangai)
+          </>
+        }
+      />
     </>
   ),
   arrowText: "3",
   winScore: 20,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -317,11 +398,15 @@ cardData.push({
       Gooi
       <br />
       20 en D20
-      <SubTitle name={"(Short Shanghai)"} />
+      <SubTitle
+        name={<span style={{ fontSize: "0.8em" }}>(Short Shanghai)</span>}
+      />
     </>
   ),
   arrowText: "2",
   winScore: 5,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -334,7 +419,9 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 20,
+  winScore: 15,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -348,6 +435,8 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 20,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 cardData.push({
@@ -361,6 +450,8 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 2,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -372,7 +463,9 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 2,
+  winScore: 1,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -385,6 +478,8 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 2,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -396,19 +491,28 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 2,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 cardData.push({
   task: (
     <>
       Gooi
-      <br />
-      <SubTitle name={"5 en 20 en 1"} />
-      <SubTitle name="(Bed & Breakfast)" />
+      <SubTitle
+        name={
+          <>
+            5 en 20 en 1<br />
+            <span style={{ fontSize: "0.8em" }}>(Bed & Breakfast)</span>
+          </>
+        }
+      />
     </>
   ),
   arrowText: "max 6",
   winScore: 2,
+  loseScore: -1,
+  skipScore: -1,
 });
 
 // OR
@@ -421,6 +525,8 @@ cardData.push({
   ),
   arrowText: "1",
   winScore: 1,
+  loseScore: -3,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -432,6 +538,8 @@ cardData.push({
   ),
   arrowText: "1",
   winScore: 1,
+  loseScore: -3,
+  skipScore: -1,
 });
 
 // BETWEEN
@@ -444,19 +552,29 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 1,
+  loseScore: -2,
+  skipScore: -1,
 });
 
 cardData.push({
   task: (
     <>
       Gooi
-      <br />
-      <SubTitle name="&gt; 100 en &lt;150" />
-      <SubTitle name="(Low Ton)" />
+      <SubTitle
+        name={
+          <>
+            &gt; 100 en &lt; 150
+            <br />
+            (Low Ton)
+          </>
+        }
+      />
     </>
   ),
   arrowText: "max 6",
   winScore: 1,
+  loseScore: -1,
+  skipScore: 0,
 });
 
 // Checkout
@@ -477,5 +595,10 @@ Array.from(Array(50)).forEach(() => {
     ),
     arrowText: "max 9",
     winScore: value > 100 ? 2 : 1,
+    loseScore: -1,
+    skipScore: 0,
   });
 });
+
+export const throwCards = cardData.filter(isThowCardData);
+export const challengeCards = cardData.filter(isChallengeCardData);

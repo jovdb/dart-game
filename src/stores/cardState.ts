@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { create } from 'zustand'
-import { cardData } from './card-data';
+import { challengeCards, throwCards } from './card-data';
 
 export interface IThrowCard {
   task: ReactNode;
@@ -8,16 +8,34 @@ export interface IThrowCard {
   arrowText: string;
 }
 
+export interface IChallengeCard {
+  task: ReactNode;
+  winScore: number;
+  loseScore: number;
+  skipScore: number;
+  arrowText: string;
+}
 
-const initialCardIndex = 0; 
+export type CardData = IThrowCard | IChallengeCard;
+
+export function isThowCardData(data: CardData): data is IThrowCard {
+  return !("loseScore" in data);
+}
+
+export function isChallengeCardData(data: CardData): data is IChallengeCard {
+  return "loseScore" in data;
+}
+
+
+const initialCardIndex = 0;
 
 export const useCards = create<{
   currentThrowIndex: number,
   currentThrowCard: IThrowCard,
 
   currentChallengeIndex: number,
-  currentChallengeCard: IThrowCard,
-  
+  currentChallengeCard: IChallengeCard,
+
   actions: {
     nextThrowCard(): void,
     nextChallengeCard(): void,
@@ -25,24 +43,24 @@ export const useCards = create<{
 
 }>((set) => ({
   currentThrowIndex: initialCardIndex,
-  currentThrowCard: cardData[initialCardIndex],
+  currentThrowCard: throwCards[initialCardIndex],
 
   currentChallengeIndex: initialCardIndex,
-  currentChallengeCard: cardData[initialCardIndex],
+  currentChallengeCard: challengeCards[initialCardIndex],
 
   actions: {
     nextThrowCard() {
-      const currentThrowIndex = Math.floor(Math.random() * cardData.length); 
+      const currentThrowIndex = Math.floor(Math.random() * throwCards.length);
       set({
         currentThrowIndex,
-        currentThrowCard: cardData[currentThrowIndex],
+        currentThrowCard: throwCards[currentThrowIndex],
       });
     },
     nextChallengeCard() {
-      const currentChallengeIndex = Math.floor(Math.random() * cardData.length); 
+      const currentChallengeIndex = Math.floor(Math.random() * challengeCards.length);
       set({
         currentChallengeIndex,
-        currentChallengeCard: cardData[currentChallengeIndex],
+        currentChallengeCard: challengeCards[currentChallengeIndex],
       });
     },
   }

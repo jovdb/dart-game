@@ -16,7 +16,11 @@ export default function CardFace({
   const classNames = clsx(styles["card-face"], className);
 
   return (
-    <AspectRatio.Root ratio={64 / 89} className={classNames} style={style}>
+    <AspectRatio.Root
+      ratio={64 / 89}
+      className={classNames}
+      style={{ background: "#f8f8f8", ...style }}
+    >
       {children}
     </AspectRatio.Root>
   );

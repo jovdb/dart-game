@@ -1,17 +1,20 @@
-import { Children, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 
-export default function RoundButton({ children }: PropsWithChildren) {
+export default function RoundButton({
+  children,
+  style,
+}: PropsWithChildren<{ style?: React.CSSProperties }>) {
   return (
     <button
       style={{
-        width: "3em",
-        height: "3em",
+        width: "calc(var(--card-height) * 0.1)",
+        height: "calc(var(--card-height) * 0.1)",
         borderRadius: "50%",
-        background: "var(--color-green)",
+        // background: "#ccc",
         border: "none",
         color: "white",
-        margin: "0 0.5em",
-        marginTop: 1,
+        verticalAlign: "middle",
+        ...style,
       }}
     >
       {children}
