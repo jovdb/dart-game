@@ -1,5 +1,5 @@
 .card {
-  --card-height: calc(100vh - 300px);
+  --card-height: 400px;
   --animation-duration: 500ms;
 
   position: relative;
