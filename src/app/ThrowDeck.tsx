@@ -15,7 +15,8 @@ interface IThrowProps {
   task: ReactNode;
   winScore: number;
   arrowText: string;
-  onNewCard(): unknown;
+  flipped: boolean;
+  onClick(isFlipped: boolean): unknown;
 }
 
 // If loading a variable font, you don't need to specify the font weight
@@ -63,19 +64,14 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
   );
 }
 
-// isChallenge ? "#bdffc9" : "#f0c7ff",
 export default function ThrowDeck(props: IThrowProps) {
-  const [cardState, setCardState] = useState<CardState>("top");
   return (
     <Card
       frontFace={<ThrowCardFront {...props} />}
       backFace={<CardBack title="SmijtKaart" backgroundColor="#f0c7ff" />}
-      state={cardState}
+      flipped={props.flipped}
       onClick={(newState) => {
-        setCardState(newState);
-        if (newState === "flipped") {
-          props.onNewCard();
-        }
+        props.onClick(newState);
       }}
       showDeck
     ></Card>

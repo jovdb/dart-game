@@ -9,12 +9,13 @@ import { useMemo } from "react";
 import { fitInRect, shrinkRect } from "./math";
 
 export default function Home() {
-  const throwCardInfo = useCards((s) => s.currentThrowCard);
-  const challengeCardInfo = useCards((s) => s.currentChallengeCard);
-  const { nextThrowCard, nextChallengeCard } = useCardsActions();
+  const throwCardInfo = useCards((s) => s.throwCard);
+  const challengeCardInfo = useCards((s) => s.challengeCard);
+  const isChallengeFlipped = useCards((s) => s.isChallengeFlipped);
+console.log("isChallengeFlipped", isChallengeFlipped)
+  const { nextThrowCard, nextChallengeCard, closeChallengeCard } = useCardsActions();
   const cardHeight = 400;
   const cardWidth = (cardHeight * 64) / 89;
-  const cardAr = cardWidth / cardHeight;
 
   const {
     ref: contentRef,
@@ -35,19 +36,7 @@ export default function Home() {
     );
 
     return fitInRect(cardSize, targetRect);
-
-    const contentAr = contentWidth / contentHeight;
-    const fitHeight =
-      contentAr > cardAr ? contentHeight : contentWidth / cardAr;
-    const fitWidth = fitHeight * cardAr;
-
-    const fitScale = fitHeight / cardHeight;
-    return {
-      x: (contentWidth - fitWidth) / 2,
-      y: (contentHeight - fitHeight) / 2,
-      scale: fitScale,
-    };
-  }, [cardAr, contentHeight, contentWidth]);
+  }, [cardWidth, contentHeight, contentWidth]);
 
   return (
     <div className={styles.app}>
@@ -62,8 +51,13 @@ export default function Home() {
         >
           <ChallengeDeck
             {...challengeCardInfo}
-            onNewCard={() => {
-              nextChallengeCard();
+            flipped={isChallengeFlipped}
+            onClick={(flipped) => {
+              if (flipped) {
+                nextChallengeCard();
+              } else {
+                closeChallengeCard();
+              }
             }}
           />
         </span>

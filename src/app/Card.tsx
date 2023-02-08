@@ -1,23 +1,31 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 
 import { useEffectEvent } from "../hooks/useEffectEvent";
 import "./Card.css";
-export type CardState = "top" | "flipped" | "bottom";
+type CardState = "top" | "flipped" | "bottom";
 
 export default function Card({
   frontFace,
   backFace,
   showDeck,
-  state = "top",
+  flipped = false,
   onClick,
 }: {
   frontFace: ReactNode;
   backFace: ReactNode;
   showDeck: boolean;
-  state: CardState;
-  onClick: (newState: CardState) => unknown;
+  flipped: boolean;
+  onClick: (newState: boolean) => unknown;
 }) {
+  const getState = useCallback<(flipped: boolean) => CardState>((flipped) => {
+    if (flipped) return "flipped";
+    if (showDeck) return "bottom";
+    return "top";
+  }, [showDeck]);
+
+  const state = getState(flipped);
   const animationDuration = 500 * (showDeck && (state === "bottom") ? 1.5 : 1);
+
   const style = {
     "--animation-duration": `${animationDuration}ms`,
   } as React.CSSProperties;
@@ -29,14 +37,11 @@ export default function Card({
     setIsBusy(true);
     setTimeout(() => setIsBusy(false), animationDuration);
 
-    let newState: CardState = "top";
-    if (state === "top" || state === "bottom") newState = "flipped";
-    if (state === "flipped") newState = showDeck ? "bottom" : "top";
-    if (state !== newState) {
-      setAnimationState(`${state}-to-${newState}`);
-    }
-    onClick(newState);
+    setAnimationState(`${state}-to-${getState(!flipped)}`);
+  
+    onClick(!flipped);
   });
+
   return (
     <div
       className={`card ${`card--${state}` ?? ""} ${

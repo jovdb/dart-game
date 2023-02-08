@@ -18,7 +18,8 @@ interface IChallengeProps {
   loseScore: number;
   skipScore: number;
   arrowText: string;
-  onNewCard(): unknown;
+  flipped: boolean;
+  onClick(isFlipped: boolean): unknown;
 }
 
 // If loading a variable font, you don't need to specify the font weight
@@ -121,17 +122,14 @@ function ChallengeCardFront({
 }
 
 export default function ChallengeDeck(props: IChallengeProps) {
-  const [cardState, setCardState] = useState<CardState>("top");
   return (
     <Card
       frontFace={<ChallengeCardFront {...props} />}
       backFace={<CardBack title="Challange" backgroundColor="#bdffc9" />}
-      state={cardState}
+      flipped={props.flipped}
       onClick={(newState) => {
-        setCardState(newState);
-        if (newState === "flipped") {
-          props.onNewCard();
-        }
+        console.log("click: " + newState);
+        props.onClick(newState);
       }}
       showDeck
     ></Card>

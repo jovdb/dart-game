@@ -30,39 +30,61 @@ export function isChallengeCardData(data: CardData): data is IChallengeCard {
 const initialCardIndex = 0;
 
 export const useCards = create<{
-  currentThrowIndex: number,
-  currentThrowCard: IThrowCard,
+  throwIndex: number;
+  throwCard: IThrowCard;
+  isThrowFlipped: boolean;
 
-  currentChallengeIndex: number,
-  currentChallengeCard: IChallengeCard,
+  challengeIndex: number;
+  challengeCard: IChallengeCard;
+  isChallengeFlipped: boolean;
 
   actions: {
-    nextThrowCard(): void,
-    nextChallengeCard(): void,
+    nextThrowCard(): void;
+    closeThrowCard(): void;
+
+    nextChallengeCard(): void;
+    closeChallengeCard(): void;
   }
 
 }>((set) => ({
-  currentThrowIndex: initialCardIndex,
-  currentThrowCard: throwCards[initialCardIndex],
+  throwIndex: initialCardIndex,
+  throwCard: throwCards[initialCardIndex],
+  isThrowFlipped: false,
 
-  currentChallengeIndex: initialCardIndex,
-  currentChallengeCard: challengeCards[initialCardIndex],
+  challengeIndex: initialCardIndex,
+  challengeCard: challengeCards[initialCardIndex],
+  isChallengeFlipped: false,
 
   actions: {
     nextThrowCard() {
       const currentThrowIndex = Math.floor(Math.random() * throwCards.length);
       set({
-        currentThrowIndex,
-        currentThrowCard: throwCards[currentThrowIndex],
+        throwIndex: currentThrowIndex,
+        throwCard: throwCards[currentThrowIndex],
       });
     },
+
+    closeThrowCard() {
+      set({
+        isThrowFlipped: false,
+      });
+    },
+
     nextChallengeCard() {
       const currentChallengeIndex = Math.floor(Math.random() * challengeCards.length);
       set({
-        currentChallengeIndex,
-        currentChallengeCard: challengeCards[currentChallengeIndex],
+        challengeIndex: currentChallengeIndex,
+        challengeCard: challengeCards[currentChallengeIndex],
+        isChallengeFlipped: true,
+        isThrowFlipped: false,
       });
     },
+
+    closeChallengeCard() {
+      set({
+        isChallengeFlipped: false,
+      });
+    }
   }
 }));
 
