@@ -10,10 +10,15 @@ import { fitInRect, shrinkRect } from "./math";
 
 export default function Home() {
   const throwCardInfo = useCards((s) => s.throwCard);
+  const isThrowFlipped = useCards((s) => s.isThrowFlipped);
   const challengeCardInfo = useCards((s) => s.challengeCard);
   const isChallengeFlipped = useCards((s) => s.isChallengeFlipped);
-  const { nextThrowCard, nextChallengeCard, closeChallengeCard } =
-    useCardsActions();
+  const {
+    nextThrowCard,
+    closeThrowCard,
+    nextChallengeCard,
+    closeChallengeCard,
+  } = useCardsActions();
   const cardHeight = 400;
   const cardWidth = (cardHeight * 64) / 89;
 
@@ -23,8 +28,15 @@ export default function Home() {
     height: contentHeight = 1,
   } = useResizeObserver<HTMLDivElement>();
 
+  const {
+    ref: cardsRef,
+    width: cardsWidth = 1,
+    height: cardsHeight = 1,
+  } = useResizeObserver<HTMLSpanElement>();
+
   const transform = useMemo(() => {
-    const cardSize = { width: cardWidth, height: cardHeight };
+    const cardSize = { width: cardsWidth, height: cardsHeight };
+    console.log(cardSize);
     const targetRect = shrinkRect(
       {
         width: contentWidth,
@@ -39,43 +51,60 @@ export default function Home() {
     );
 
     return fitInRect(cardSize, targetRect);
-  }, [cardWidth, contentHeight, contentWidth]);
+  }, [cardsHeight, cardsWidth, contentHeight, contentWidth]);
 
   return (
     <div className={styles.app}>
-      <div>HEADER</div>
+      <div></div>
       <div className={styles.content} ref={contentRef}>
-        <span
-          style={{
-            transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
-            position: "absolute",
-            transformOrigin: "0 0",
-          }}
-        >
-          <ChallengeDeck
-            {...challengeCardInfo}
-            flipped={isChallengeFlipped}
-            onClick={(newFlipped) => {
-              if (newFlipped) {
-                nextChallengeCard();
-              } else {
-                closeChallengeCard();
-              }
+        {
+          <span
+            style={{
+              transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
+              position: "absolute",
+              transformOrigin: "0 0",
             }}
-          />
-        </span>
-        {false && (
-          <span style={{ margin: 20 }}>
-            <ThrowDeck
-              {...throwCardInfo}
-              onNewCard={() => {
-                nextThrowCard();
+          >
+            <span
+              ref={cardsRef}
+              style={{
+                display: "flex",
+                flexDirection: "row-reverse",
+                textAlign: "center",
               }}
-            />
+            >
+              <span style={{ display: "inline-block", margin: 20 }}>
+                <ChallengeDeck
+                  {...challengeCardInfo}
+                  flipped={isChallengeFlipped}
+                  onClick={(newFlipped) => {
+                    if (newFlipped) {
+                      nextChallengeCard();
+                    } else {
+                      closeChallengeCard();
+                    }
+                  }}
+                />
+              </span>
+
+              <span style={{ display: "inline-block", margin: 20 }}>
+                <ThrowDeck
+                  {...throwCardInfo}
+                  flipped={isThrowFlipped}
+                  onClick={(newFlipped) => {
+                    if (newFlipped) {
+                      nextThrowCard();
+                    } else {
+                      closeThrowCard();
+                    }
+                  }}
+                />
+              </span>
+            </span>
           </span>
-        )}
+        }
       </div>
-      <div>Footer</div>
+      <div></div>
     </div>
   );
 }

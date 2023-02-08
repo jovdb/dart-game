@@ -2,9 +2,9 @@
   --card-height: 400px;
   --animation-duration: 500ms;
 
+  display: inline-block;
   position: relative;
   perspective: 1000px;
-  transform: perspective(1000px);
   height: var(--card-height);
   width: calc(var(--card-height) * 64 / 89);
   font-size: calc(var(--card-height) * 0.02);
