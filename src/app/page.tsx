@@ -12,8 +12,8 @@ export default function Home() {
   const throwCardInfo = useCards((s) => s.throwCard);
   const challengeCardInfo = useCards((s) => s.challengeCard);
   const isChallengeFlipped = useCards((s) => s.isChallengeFlipped);
-console.log("isChallengeFlipped", isChallengeFlipped)
-  const { nextThrowCard, nextChallengeCard, closeChallengeCard } = useCardsActions();
+  const { nextThrowCard, nextChallengeCard, closeChallengeCard } =
+    useCardsActions();
   const cardHeight = 400;
   const cardWidth = (cardHeight * 64) / 89;
 
@@ -32,7 +32,10 @@ console.log("isChallengeFlipped", isChallengeFlipped)
         top: 0,
         left: 0,
       },
-      50, 50, 50 , 50,
+      50,
+      50,
+      50,
+      50
     );
 
     return fitInRect(cardSize, targetRect);
@@ -52,8 +55,8 @@ console.log("isChallengeFlipped", isChallengeFlipped)
           <ChallengeDeck
             {...challengeCardInfo}
             flipped={isChallengeFlipped}
-            onClick={(flipped) => {
-              if (flipped) {
+            onClick={(newFlipped) => {
+              if (newFlipped) {
                 nextChallengeCard();
               } else {
                 closeChallengeCard();

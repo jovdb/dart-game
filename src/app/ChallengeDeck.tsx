@@ -128,7 +128,6 @@ export default function ChallengeDeck(props: IChallengeProps) {
       backFace={<CardBack title="Challange" backgroundColor="#bdffc9" />}
       flipped={props.flipped}
       onClick={(newState) => {
-        console.log("click: " + newState);
         props.onClick(newState);
       }}
       showDeck
