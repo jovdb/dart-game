@@ -19,7 +19,8 @@ interface IChallengeProps {
   skipScore: number;
   arrowText: string;
   flipped: boolean;
-  onClick(isFlipped: boolean): unknown;
+  onClick(): unknown;
+  onAnimation?: (isBusy: boolean) => unknown;
 }
 
 // If loading a variable font, you don't need to specify the font weight
@@ -127,9 +128,8 @@ export default function ChallengeDeck(props: IChallengeProps) {
       frontFace={<ChallengeCardFront {...props} />}
       backFace={<CardBack title="Challange" backgroundColor="#bdffc9" />}
       flipped={props.flipped}
-      onClick={(newState) => {
-        props.onClick(newState);
-      }}
+      onClick={props.onClick}
+      onAnimation={props.onAnimation}
       showDeck
     ></Card>
   );

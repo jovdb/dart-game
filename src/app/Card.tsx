@@ -10,36 +10,37 @@ export default function Card({
   showDeck,
   flipped = false,
   onClick,
+  onAnimation,
 }: {
   frontFace: ReactNode;
   backFace: ReactNode;
   showDeck: boolean;
   flipped: boolean;
-  onClick: (newState: boolean) => unknown;
+  onClick: () => unknown;
+  onAnimation?: (isBusy: boolean) => unknown;
 }) {
-  const getState = useCallback<(flipped: boolean) => CardState>((flipped) => {
-    if (flipped) return "flipped";
-    if (showDeck) return "bottom";
-    return "top";
-  }, [showDeck]);
+  const getState = useCallback<(flipped: boolean) => CardState>(
+    (flipped) => {
+      if (flipped) return "flipped";
+      if (showDeck) return "bottom";
+      return "top";
+    },
+    [showDeck]
+  );
 
   const state = getState(flipped);
-  const animationDuration = 500 * (showDeck && (state === "bottom") ? 1.5 : 1);
+  const animationState = `${getState(!flipped)}-to-${state}`;
+  const animationDuration = 500 * (showDeck && state === "bottom" ? 1.5 : 1);
 
   const style = {
     "--animation-duration": `${animationDuration}ms`,
   } as React.CSSProperties;
-  const [isBusy, setIsBusy] = useState(false);
-  const [animationState, setAnimationState] = useState("");
 
-  const onClickWithBlockDuringAnimation = useEffectEvent(() => {
-    if (isBusy) return;
-    setIsBusy(true);
-    setTimeout(() => setIsBusy(false), animationDuration);
+  const onClickCard = useEffectEvent(() => {
+    onAnimation?.(true);
+    setTimeout(() => onAnimation?.(false), animationDuration);
 
-    setAnimationState(`${state}-to-${getState(!flipped)}`);
-  
-    onClick(!flipped);
+    onClick();
   });
 
   return (
@@ -54,13 +55,13 @@ export default function Card({
         <div className={"card_group"}>
           <div
             className={"card_back"}
-            onClick={onClickWithBlockDuringAnimation}
+            onClick={onClickCard}
           >
             {backFace}
           </div>
           <div
             className={"card_front"}
-            onClick={onClickWithBlockDuringAnimation}
+            onClick={onClickCard}
           >
             {frontFace}
           </div>

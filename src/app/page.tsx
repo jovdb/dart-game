@@ -5,7 +5,7 @@ import ChallengeDeck from "./ChallengeDeck";
 
 import styles from "./page.module.css";
 import useResizeObserver from "use-resize-observer";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { fitInRect, shrinkRect } from "./math";
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
   const isThrowFlipped = useCards((s) => s.isThrowFlipped);
   const challengeCardInfo = useCards((s) => s.challengeCard);
   const isChallengeFlipped = useCards((s) => s.isChallengeFlipped);
+  const [isBlocked, setIsBlocked] = useState(0);
   const {
     nextThrowCard,
     closeThrowCard,
@@ -51,7 +52,7 @@ export default function Home() {
   }, [cardsHeight, cardsWidth, contentHeight, contentWidth]);
 
   return (
-    <div className={styles.app}>
+    <div className={styles.app} style={{ pointerEvents: isBlocked ? "none" : "auto"}}>
       <div></div>
       <div className={styles.content} ref={contentRef}>
         {
@@ -75,12 +76,19 @@ export default function Home() {
                 <ChallengeDeck
                   {...challengeCardInfo}
                   flipped={isChallengeFlipped}
-                  onClick={(newFlipped) => {
-                    if (newFlipped) {
-                      nextChallengeCard();
-                    } else {
-                      closeChallengeCard();
+                  onClick={() => {
+                    if (isThrowFlipped) {
+                      closeThrowCard();
+                      return;
                     }
+                    if (isChallengeFlipped) {
+                      closeChallengeCard();
+                    } else {
+                      nextChallengeCard();
+                    }
+                  }}
+                  onAnimation={(isBusy) => {
+                    setIsBlocked((prev) => isBusy ? prev + 1 : prev - 1);
                   }}
                 />
               </span>
@@ -89,12 +97,19 @@ export default function Home() {
                 <ThrowDeck
                   {...throwCardInfo}
                   flipped={isThrowFlipped}
-                  onClick={(newFlipped) => {
-                    if (newFlipped) {
-                      nextThrowCard();
-                    } else {
-                      closeThrowCard();
+                  onClick={() => {
+                    if (isChallengeFlipped) {
+                      closeChallengeCard();
+                      return;
                     }
+                    if (isThrowFlipped) {
+                      closeThrowCard();
+                    } else {
+                      nextThrowCard();
+                    }
+                  }}
+                  onAnimation={(isBusy) => {
+                    setIsBlocked((prev) => isBusy ? prev + 1 : prev - 1);
                   }}
                 />
               </span>
