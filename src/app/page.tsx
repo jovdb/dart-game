@@ -36,7 +36,6 @@ export default function Home() {
 
   const transform = useMemo(() => {
     const cardSize = { width: cardsWidth, height: cardsHeight };
-    console.log(cardSize);
     const targetRect = shrinkRect(
       {
         width: contentWidth,
@@ -44,9 +43,9 @@ export default function Home() {
         top: 0,
         left: 0,
       },
+      20,
       50,
-      50,
-      50,
+      20,
       50
     );
 
