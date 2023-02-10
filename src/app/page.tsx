@@ -33,6 +33,8 @@ export default function Home() {
     height: cardsHeight = 1,
   } = useResizeObserver<HTMLSpanElement>();
 
+  const showVertical = contentWidth / contentHeight < 0.8;
+
   const transform = useMemo(() => {
     const cardSize = { width: cardsWidth, height: cardsHeight };
     const targetRect = shrinkRect(
@@ -43,9 +45,9 @@ export default function Home() {
         left: 0,
       },
       20,
-      50,
+      30,
       20,
-      50
+      30,
     );
 
     return fitInRect(cardSize, targetRect);
@@ -69,7 +71,7 @@ export default function Home() {
                 display: "flex",
                 // flexDirection: "row-reverse",
                 textAlign: "center",
-                flexDirection: contentWidth / contentHeight > 0.8 ? "row-reverse" : "column-reverse",
+                flexDirection: showVertical ? "column-reverse" : "row-reverse",
               }}
             >
               <span style={{ display: "inline-block", margin: "30px 20px"}}>
@@ -121,3 +123,5 @@ export default function Home() {
     </div>
   );
 }
+
+export const dynamic = "force-static"
