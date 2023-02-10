@@ -19,8 +19,6 @@ export default function Home() {
     nextChallengeCard,
     closeChallengeCard,
   } = useCardsActions();
-  const cardHeight = 400;
-  const cardWidth = (cardHeight * 64) / 89;
 
   const {
     ref: contentRef,
@@ -68,11 +66,12 @@ export default function Home() {
               ref={cardsRef}
               style={{
                 display: "flex",
-                flexDirection: "row-reverse",
+                // flexDirection: "row-reverse",
                 textAlign: "center",
+                flexDirection: contentWidth / contentHeight > 0.8 ? "row-reverse" : "column-reverse",
               }}
             >
-              <span style={{ display: "inline-block", margin: 20 }}>
+              <span style={{ display: "inline-block", margin: "30px 20px"}}>
                 <ChallengeDeck
                   {...challengeCardInfo}
                   flipped={isChallengeFlipped}
@@ -86,7 +85,7 @@ export default function Home() {
                 />
               </span>
 
-              <span style={{ display: "inline-block", margin: 20 }}>
+              <span style={{ display: "inline-block", margin: "30px 20px"}}>
                 <ThrowDeck
                   {...throwCardInfo}
                   flipped={isThrowFlipped}
