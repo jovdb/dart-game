@@ -76,10 +76,10 @@ export default function Home() {
                 <ChallengeDeck
                   {...challengeCardInfo}
                   flipped={isChallengeFlipped}
-                  onClick={() => {
+                  onClick={async () => {
                     if (isThrowFlipped) {
                       closeThrowCard();
-                      return;
+                      await new Promise(resolve => {setTimeout(resolve, 500)});
                     }
                     if (isChallengeFlipped) {
                       closeChallengeCard();
@@ -97,10 +97,10 @@ export default function Home() {
                 <ThrowDeck
                   {...throwCardInfo}
                   flipped={isThrowFlipped}
-                  onClick={() => {
+                  onClick={async () => {
                     if (isChallengeFlipped) {
                       closeChallengeCard();
-                      return;
+                      await new Promise(resolve => {setTimeout(resolve, 500)});
                     }
                     if (isThrowFlipped) {
                       closeThrowCard();
