@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { isChallengeCardData, isThowCardData, CardData } from "./cardState";
+import { isChallengeCardData, isThrowCardData, CardData } from "./cardState";
 
 const cardData: CardData[] = [];
 
@@ -124,7 +124,7 @@ cardData.push({
   skipScore: -1,
 });
 
-// Greather than
+// Greater than
 cardData.push({
   task: (
     <>
@@ -600,6 +600,6 @@ Array.from(Array(50)).forEach(() => {
   });
 });
 
-export const throwCards = cardData.filter(isThowCardData);
+export const throwCards = cardData.filter(isThrowCardData);
 export const challengeCards = cardData.filter(isChallengeCardData);
 console.log(throwCards.length)

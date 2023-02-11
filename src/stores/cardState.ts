@@ -18,12 +18,12 @@ export interface IChallengeCard {
 
 export type CardData = IThrowCard | IChallengeCard;
 
-export function isThowCardData(data: CardData): data is IThrowCard {
+export function isThrowCardData(data: CardData): data is IThrowCard {
   return ("task" in data) && ("winScore" in data) && ("arrowText" in data);
 }
 
 export function isChallengeCardData(data: CardData): data is IChallengeCard {
-  return isThowCardData(data) && "loseScore" in data;
+  return isThrowCardData(data) && "loseScore" in data;
 }
 
 const initialCardIndex = 0;
@@ -56,7 +56,6 @@ export const useCards = create<{
 
   actions: {
     nextThrowCard() {
-      // if (get().isChallengeFlipped) return;
       const currentThrowIndex = Math.floor(Math.random() * throwCards.length);
       set({
         throwIndex: currentThrowIndex,
@@ -73,7 +72,6 @@ export const useCards = create<{
     },
 
     nextChallengeCard() {
-      // if (get().isThrowFlipped) return;
       const currentChallengeIndex = Math.floor(Math.random() * challengeCards.length);
       set({
         challengeIndex: currentChallengeIndex,

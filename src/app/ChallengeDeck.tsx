@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Card from "./Card";
 import CardFace from "./CardFace";
 import dartImg from "../../public/dart.png";
@@ -126,7 +126,7 @@ export default function ChallengeDeck(props: IChallengeProps) {
   return (
     <Card
       frontFace={<ChallengeCardFront {...props} />}
-      backFace={<CardBack title="Challange" backgroundColor="#bdffc9" />}
+      backFace={<CardBack title="Challenge" backgroundColor="#bdffc9" />}
       flipped={props.flipped}
       onClick={props.onClick}
       onAnimation={props.onAnimation}

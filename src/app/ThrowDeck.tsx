@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Card from "./Card";
 import CardFace from "./CardFace";
 import dartImg from "../../public/dart.png";

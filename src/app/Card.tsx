@@ -1,4 +1,5 @@
-import { ReactNode, useCallback, useState } from "react";
+import clsx from "clsx";
+import { ReactNode, useCallback } from "react";
 
 import { useEffectEvent } from "../hooks/useEffectEvent";
 import "./Card.css";
@@ -43,11 +44,15 @@ export default function Card({
     onClick();
   });
 
+  const className = clsx([
+    "card",
+    `card--${state}`,
+    animationState && `card--${animationState}`,
+  ]);
+
   return (
     <div
-      className={`card ${`card--${state}` ?? ""} ${
-        (animationState && `card--${animationState}`) ?? ""
-      }`}
+      className={className}
       style={style}
     >
       {showDeck && <div className={"card_deck"}>{backFace}</div>}
