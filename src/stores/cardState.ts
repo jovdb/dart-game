@@ -147,7 +147,7 @@ function diff(o1: any, o2: any) {
 if (process.env.NODE_ENV === "development") {
   useCards.subscribe(
     (value, prevState) => {
-      console.log("State changed:", diff(value, prevState));
+      console.log("Card state changed:", diff(value, prevState));
     }
   );
 }
