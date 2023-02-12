@@ -602,4 +602,3 @@ Array.from(Array(50)).forEach(() => {
 
 export const throwCards = cardData.filter(isThrowCardData);
 export const challengeCards = cardData.filter(isChallengeCardData);
-console.log(throwCards.length)

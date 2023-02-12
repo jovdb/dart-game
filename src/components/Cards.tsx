@@ -1,25 +1,31 @@
-"use client";
 import ThrowDeck from "./ThrowDeck";
-import { useCards, useCardsActions } from "@/stores/cardState";
+import {
+  useChallengeCard,
+  useThrowCard,
+} from "@/stores/cardState";
 import ChallengeDeck from "./ChallengeDeck";
 
-import styles from "./page.module.css";
+import styles from "./Cards.module.css";
 import useResizeObserver from "use-resize-observer";
 import { useMemo, useState } from "react";
-import { fitInRect, shrinkRect } from "./math";
+import { fitInRect, shrinkRect } from "../math";
 
-export default function Home() {
-  const throwCardInfo = useCards((s) => s.throwCard);
-  const isThrowFlipped = useCards((s) => s.isThrowFlipped);
-  const challengeCardInfo = useCards((s) => s.challengeCard);
-  const isChallengeFlipped = useCards((s) => s.isChallengeFlipped);
-  const [isBlocked, setIsBlocked] = useState(0);
+export default function Cards() {
   const {
-    nextThrowCard,
-    closeThrowCard,
-    nextChallengeCard,
-    closeChallengeCard,
-  } = useCardsActions();
+    card: throwCardInfo,
+    isFlipped: isThrowFlipped,
+    next: nextThrowCard,
+    close: closeThrowCard,
+  } = useThrowCard();
+
+  const {
+    card: challengeCardInfo,
+    isFlipped: isChallengeFlipped,
+    next: nextChallengeCard,
+    close: closeChallengeCard,
+  } = useChallengeCard();
+
+  const [isBlocked, setIsBlocked] = useState(0);
 
   const {
     ref: contentRef,
@@ -47,14 +53,17 @@ export default function Home() {
       20,
       30,
       20,
-      30,
+      30
     );
 
     return fitInRect(cardSize, targetRect);
   }, [cardsHeight, cardsWidth, contentHeight, contentWidth]);
 
   return (
-    <div className={styles.app} style={{ pointerEvents: isBlocked ? "none" : "auto"}}>
+    <div
+      className={styles.app}
+      style={{ pointerEvents: isBlocked ? "none" : "auto" }}
+    >
       <div></div>
       <div className={styles.content} ref={contentRef}>
         {
@@ -74,14 +83,16 @@ export default function Home() {
                 flexDirection: showVertical ? "column-reverse" : "row-reverse",
               }}
             >
-              <span style={{ display: "inline-block", margin: "30px 20px"}}>
+              <span style={{ display: "inline-block", margin: "30px 20px" }}>
                 <ChallengeDeck
                   {...challengeCardInfo}
                   flipped={isChallengeFlipped}
                   onClick={async () => {
                     if (isThrowFlipped) {
                       closeThrowCard();
-                      await new Promise(resolve => {setTimeout(resolve, 500)});
+                      await new Promise((resolve) => {
+                        setTimeout(resolve, 500);
+                      });
                     }
                     if (isChallengeFlipped) {
                       closeChallengeCard();
@@ -90,19 +101,21 @@ export default function Home() {
                     }
                   }}
                   onAnimation={(isBusy) => {
-                    setIsBlocked((prev) => isBusy ? prev + 1 : prev - 1);
+                    setIsBlocked((prev) => (isBusy ? prev + 1 : prev - 1));
                   }}
                 />
               </span>
 
-              <span style={{ display: "inline-block", margin: "30px 20px"}}>
+              <span style={{ display: "inline-block", margin: "30px 20px" }}>
                 <ThrowDeck
                   {...throwCardInfo}
                   flipped={isThrowFlipped}
                   onClick={async () => {
                     if (isChallengeFlipped) {
                       closeChallengeCard();
-                      await new Promise(resolve => {setTimeout(resolve, 500)});
+                      await new Promise((resolve) => {
+                        setTimeout(resolve, 500);
+                      });
                     }
                     if (isThrowFlipped) {
                       closeThrowCard();
@@ -111,7 +124,7 @@ export default function Home() {
                     }
                   }}
                   onAnimation={(isBusy) => {
-                    setIsBlocked((prev) => isBusy ? prev + 1 : prev - 1);
+                    setIsBlocked((prev) => (isBusy ? prev + 1 : prev - 1));
                   }}
                 />
               </span>
@@ -123,5 +136,3 @@ export default function Home() {
     </div>
   );
 }
-
-export const dynamic = "force-static";

@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export"
+    "export": "next export",
+    "preview": "npx serve ./out",
+    "all": "npm run build && npm run export && npm run preview"
   },
   "dependencies": {
     "@next/font": "13.1.6",

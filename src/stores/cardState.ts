@@ -28,7 +28,8 @@ export function isChallengeCardData(data: CardData): data is IChallengeCard {
 
 const initialCardIndex = 0;
 
-export const useCards = create<{
+
+const useCards = create<{
   throwIndex: number;
   throwCard: IThrowCard;
   isThrowFlipped: boolean;
@@ -45,7 +46,7 @@ export const useCards = create<{
     closeChallengeCard(): void;
   }
 
-}>((set, get) => ({
+}>((set) => ({
   throwIndex: initialCardIndex,
   throwCard: throwCards[initialCardIndex],
   isThrowFlipped: false,
@@ -91,4 +92,62 @@ export const useCards = create<{
 
 export const useCardsActions = () => {
   return useCards(s => s.actions);
+}
+
+export const useThrowCard = () => {
+  const card = useCards(s => s.throwCard);
+  const isFlipped = useCards(s => s.isThrowFlipped);
+  const {
+    nextThrowCard: next,
+    closeThrowCard: close,
+  } = useCardsActions();
+
+  return {
+    card,
+    isFlipped,
+    next,
+    close,
+  };
+}
+
+export const useChallengeCard = () => {
+  const card = useCards(s => s.challengeCard);
+  const isFlipped = useCards(s => s.isChallengeFlipped);
+  const {
+    nextThrowCard: next,
+    closeThrowCard: close,
+  } = useCardsActions();
+
+  return {
+    card,
+    isFlipped,
+    next,
+    close,
+  };
+}
+
+
+// Add Some console logging
+function diff(o1: any, o2: any) {
+  // Simple diff: Removes are not detected
+  return Object
+    .keys(o2)
+    .reduce((diff, key) => {
+      if (o1[key] === o2[key]) return diff
+      return {
+        ...diff,
+        [key]: {
+          from: o2[key],
+          to: o1[key],
+        }
+      }
+    }, {});
+}
+
+if (process.env.NODE_ENV === "development") {
+  useCards.subscribe(
+    (value, prevState) => {
+      console.log("State changed:", diff(value, prevState));
+    }
+  );
 }
