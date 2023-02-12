@@ -35,15 +35,16 @@ export default function Card({
     prevFlipped === undefined || prevFlipped === flipped
       ? ""
       : `${getState(prevFlipped)}-to-${state}`;
-  const animationDuration = 500 * (showDeck && state === "bottom" ? 1.5 : 1);
+  const animationDuration = 500;
 
   const style = {
-    "--animation-duration": `${animationDuration}ms`,
+    "--animation-duration": `${showDeck ? animationDuration * 1.5 : animationDuration}ms`,
+    "--animation-flipped-duration": `${animationDuration}ms`,
   } as React.CSSProperties;
 
   const onClickCard = useEffectEvent(() => {
     onAnimation?.(true);
-    setTimeout(() => onAnimation?.(false), animationDuration);
+    setTimeout(() => onAnimation?.(false), showDeck ? animationDuration * 1.5 : animationDuration);
     onClick();
   });
 

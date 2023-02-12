@@ -1,6 +1,7 @@
 .card {
   --card-height: 400px;
-  --animation-duration: 500ms;
+  --animation-flipped-duration: 500ms;
+  --animation-duration: 750ms;
 
   display: inline-block;
   position: relative;
@@ -60,12 +61,12 @@
 /* ---------- */
 .card--bottom-to-flipped .card_move,
 .card--top-to-flipped .card_move {
-  animation: card--top-to-flipped-zoom var(--animation-duration) ease-in-out;
+  animation: card--top-to-flipped-zoom var(--animation-flipped-duration) ease-in-out;
 }
 
 .card--bottom-to-flipped .card_group,
 .card--top-to-flipped .card_group {
-  animation: card--top-to-flipped-rotate var(--animation-duration) ease-in-out;
+  animation: card--top-to-flipped-rotate var(--animation-flipped-duration) ease-in-out;
 }
 
 .card--flipped-to-top .card_move {

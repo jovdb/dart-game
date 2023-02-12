@@ -114,8 +114,8 @@ export const useChallengeCard = () => {
   const card = useCards(s => s.challengeCard);
   const isFlipped = useCards(s => s.isChallengeFlipped);
   const {
-    nextThrowCard: next,
-    closeThrowCard: close,
+    nextChallengeCard: next,
+    closeChallengeCard: close,
   } = useCardsActions();
 
   return {

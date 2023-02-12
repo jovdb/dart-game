@@ -91,7 +91,7 @@ export default function Cards() {
                     if (isThrowFlipped) {
                       closeThrowCard();
                       await new Promise((resolve) => {
-                        setTimeout(resolve, 500);
+                        setTimeout(resolve, 800);
                       });
                     }
                     if (isChallengeFlipped) {
@@ -114,7 +114,7 @@ export default function Cards() {
                     if (isChallengeFlipped) {
                       closeChallengeCard();
                       await new Promise((resolve) => {
-                        setTimeout(resolve, 500);
+                        setTimeout(resolve, 800);
                       });
                     }
                     if (isThrowFlipped) {
