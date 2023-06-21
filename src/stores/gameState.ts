@@ -1,6 +1,4 @@
-import { ReactNode } from 'react';
 import { create } from 'zustand'
-import { challengeCards, throwCards } from './card-data';
 
 export interface IBox {
   isChallenge: boolean;
@@ -10,7 +8,7 @@ export interface IBox {
 export interface IGame {
   boxes: IBox[];
   actions: {
-    /* I character per box:
+    /* 1 character per box:
     Codes:
     0: Empty
     1: x2
@@ -28,7 +26,7 @@ const useGameState = create<IGame>((set) => ({
 
   actions: {
     loadGame(code: string) {
-      /* Smpmle: 0401402410_4104006140_2040124040_1240420401_4050420601_4040241040
+      /* Sample: 0401402410_4104006140_2040124040_1240420401_4050420601_4040241040
       0: Empty
       1: x2
       2: x3
@@ -51,10 +49,10 @@ const useGameState = create<IGame>((set) => ({
 
 // Load from Querystring
 const queryString = typeof window !== "undefined" && window.location.search;
-const urlParams = queryString && new URLSearchParams(queryString);
-const game = urlParams && urlParams.get('game');
+const urlParams = queryString ? new URLSearchParams(queryString) : undefined;
+const game = urlParams?.get('game');
 
-useGameState.getState().actions.loadGame(game || "040140241041040061402040124040124042040140504206014040241040");
+useGameState.getState().actions.loadGame(game ?? "040140241041040061402040124040124042040140504206014040241040");
 
 export const useGameActions = () => {
   return useGameState(s => s.actions);

@@ -43,7 +43,7 @@ Array.from(Array(20)).forEach((_, index) => {
       </>
     ),
     arrowText: "max 3",
-    winScore: 2,
+    winScore: 3,
     loseScore: -1,
     skipScore: 0,
   });
@@ -60,7 +60,7 @@ Array.from(Array(20)).forEach((_, index) => {
       </>
     ),
     arrowText: "max 3",
-    winScore: 2,
+    winScore: 4,
     loseScore: -1,
     skipScore: 0,
   });
@@ -77,7 +77,7 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 3,
+  winScore: 4,
   loseScore: -1,
   skipScore: 0,
 });
@@ -91,7 +91,7 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 2,
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -134,7 +134,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 1,
+  winScore: 2,
   loseScore: -1,
   skipScore: -1,
 });
@@ -148,7 +148,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 1,
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -162,7 +162,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 2,
+  winScore: 3,
   loseScore: -1,
   skipScore: 0,
 });
@@ -176,7 +176,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 2,
+  winScore: 4,
   loseScore: -1,
   skipScore: 0,
 });
@@ -190,7 +190,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 3,
+  winScore: 4,
   loseScore: -1,
   skipScore: 0,
 });
@@ -204,7 +204,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 3,
+  winScore: 5,
   loseScore: -1,
   skipScore: 0,
 });
@@ -218,7 +218,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 3,
+  winScore: 5,
   loseScore: -1,
   skipScore: 0,
 });
@@ -249,7 +249,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 2,
+  winScore: 3,
   loseScore: -1,
   skipScore: 0,
 });
@@ -264,7 +264,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 3",
-  winScore: 2,
+  winScore: 5,
   loseScore: -1,
   skipScore: 0,
 });
@@ -294,7 +294,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 3,
+  winScore: 5,
   loseScore: -1,
   skipScore: 0,
 });
@@ -434,7 +434,7 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 20,
+  winScore: 25,
   loseScore: -1,
   skipScore: 0,
 });
@@ -477,7 +477,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 2,
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -490,7 +490,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 2,
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -510,7 +510,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 2,
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -551,7 +551,7 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 1,
+  winScore: 2,
   loseScore: -2,
   skipScore: -1,
 });
@@ -572,14 +572,14 @@ cardData.push({
     </>
   ),
   arrowText: "max 6",
-  winScore: 1,
+  winScore: 3,
   loseScore: -1,
   skipScore: 0,
 });
 
 // Checkout
-Array.from(Array(50)).forEach(() => {
-  const value = 1 + Math.floor(Math.random() * 120);
+Array.from(Array(40)).forEach(() => {
+  const value = 2 + Math.floor(Math.random() * 140);
   let name = "";
   if (value === 25) name = "Devil's Finish";
   if (value === 130) name = "Baby Fish";
@@ -593,8 +593,8 @@ Array.from(Array(50)).forEach(() => {
         {name && <SubTitle name={`(${name})`} />}
       </>
     ),
-    arrowText: "max 9",
-    winScore: value > 100 ? 2 : 1,
+    arrowText: "max 3x3",
+    winScore: value > 100 ? 4 : (value > 60 ? 3 : 2),
     loseScore: -1,
     skipScore: 0,
   });
