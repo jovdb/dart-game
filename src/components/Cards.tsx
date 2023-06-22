@@ -1,8 +1,5 @@
 import ThrowDeck from "./ThrowDeck";
-import {
-  useChallengeCard,
-  useThrowCard,
-} from "@/stores/cardState";
+import { useChallengeCard, useThrowCard } from "@/stores/cardState";
 import ChallengeDeck from "./ChallengeDeck";
 
 import styles from "./Cards.module.css";
@@ -63,6 +60,11 @@ export default function Cards() {
     <div
       className={styles.app}
       style={{ pointerEvents: isBlocked ? "none" : "auto" }}
+      onClick={() => {
+        // Close Both
+        if (isChallengeFlipped) closeChallengeCard();
+        if (isThrowFlipped) closeThrowCard();
+      }}
     >
       <div></div>
       <div className={styles.content} ref={contentRef}>
@@ -87,7 +89,8 @@ export default function Cards() {
                 <ChallengeDeck
                   {...challengeCardInfo}
                   flipped={isChallengeFlipped}
-                  onClick={async () => {
+                  onClick={async (e) => {
+                    e.stopPropagation();
                     if (isThrowFlipped) {
                       closeThrowCard();
                       await new Promise((resolve) => {
@@ -96,9 +99,11 @@ export default function Cards() {
                     }
                     if (isChallengeFlipped) {
                       closeChallengeCard();
-                    } else {
-                      nextChallengeCard();
+                      await new Promise((resolve) => {
+                        setTimeout(resolve, 800);
+                      });
                     }
+                    nextChallengeCard();
                   }}
                   onAnimation={(isBusy) => {
                     setIsBlocked((prev) => (isBusy ? prev + 1 : prev - 1));
@@ -110,7 +115,8 @@ export default function Cards() {
                 <ThrowDeck
                   {...throwCardInfo}
                   flipped={isThrowFlipped}
-                  onClick={async () => {
+                  onClick={async (e) => {
+                    e.stopPropagation();
                     if (isChallengeFlipped) {
                       closeChallengeCard();
                       await new Promise((resolve) => {
@@ -119,9 +125,11 @@ export default function Cards() {
                     }
                     if (isThrowFlipped) {
                       closeThrowCard();
-                    } else {
-                      nextThrowCard();
+                      await new Promise((resolve) => {
+                        setTimeout(resolve, 800);
+                      });
                     }
+                    nextThrowCard();
                   }}
                   onAnimation={(isBusy) => {
                     setIsBlocked((prev) => (isBusy ? prev + 1 : prev - 1));

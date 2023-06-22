@@ -1,6 +1,6 @@
 import { usePrevious } from "@/hooks/usePrevious";
 import clsx from "clsx";
-import { ReactNode, useCallback } from "react";
+import { MouseEventHandler, ReactNode, useCallback } from "react";
 
 import { useEffectEvent } from "../hooks/useEffectEvent";
 type CardState = "top" | "flipped" | "bottom";
@@ -17,7 +17,7 @@ export default function Card({
   backFace: ReactNode;
   showDeck: boolean;
   flipped: boolean;
-  onClick: () => unknown;
+  onClick: (e: React.MouseEvent) => unknown;
   onAnimation?: (isBusy: boolean) => unknown;
 }) {
   const getState = useCallback<(flipped: boolean) => CardState>(
@@ -42,10 +42,10 @@ export default function Card({
     "--animation-flipped-duration": `${animationDuration}ms`,
   } as React.CSSProperties;
 
-  const onClickCard = useEffectEvent(() => {
+  const onClickCard = useEffectEvent((e) => {
     onAnimation?.(true);
     setTimeout(() => onAnimation?.(false), showDeck ? animationDuration * 1.5 : animationDuration);
-    onClick();
+    onClick(e);
   });
 
   const className = clsx([

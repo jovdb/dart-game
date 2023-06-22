@@ -16,7 +16,7 @@ interface IThrowProps {
   winScore: number;
   arrowText: string;
   flipped: boolean;
-  onClick(): unknown;
+  onClick(e: React.MouseEvent): unknown;
   onAnimation?: (isBusy: boolean) => unknown;
 }
 
