@@ -12,7 +12,7 @@ function SubTitle({ name }: { name: ReactNode }) {
   );
 }
 
-// Loop over numbers
+// *
 Array.from(Array(20)).forEach((_, index) => {
   const value = index + 1;
   cardData.push({
@@ -27,6 +27,28 @@ Array.from(Array(20)).forEach((_, index) => {
     loseScore: -2,
     skipScore: -1,
   });
+});
+
+// * Single arrow
+Array.from(Array(20)).forEach((_, index) => {
+  const value = index + 1;
+  cardData.push({
+    task: (
+      <>
+        Single shot
+        <br />*{value}
+      </>
+    ),
+    arrowText: "1",
+    winScore: 3,
+    loseScore: -1,
+    skipScore: -1,
+  });
+});
+
+// Doubles
+Array.from(Array(20)).forEach((_, index) => {
+  const value = index + 1;
 
   let name = "";
   if (value === 1) name = "Annie's Attic";
@@ -47,8 +69,13 @@ Array.from(Array(20)).forEach((_, index) => {
     loseScore: -1,
     skipScore: 0,
   });
+});
 
-  name = "";
+// Triples
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 19, 20, 20, 20, 20].forEach((_, index) => {
+  const value = index + 1;
+
+  let name = "";
   if (value === 6) name = "Devil";
 
   cardData.push({
@@ -78,6 +105,20 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 4,
+  loseScore: -1,
+  skipScore: 0,
+});
+
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <br />
+      &lt; 15
+    </>
+  ),
+  arrowText: "3",
+  winScore: 3,
   loseScore: -1,
   skipScore: 0,
 });
@@ -125,74 +166,76 @@ cardData.push({
 });
 
 // Greater than
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <br />
-      &gt;= 40
-    </>
-  ),
-  arrowText: "max 3",
-  winScore: 2,
-  loseScore: -1,
-  skipScore: -1,
-});
+Array.from(Array(2)).forEach(() => {
+  cardData.push({
+    task: (
+      <>
+        Gooi
+        <br />
+        &gt;= 40
+      </>
+    ),
+    arrowText: "max 3",
+    winScore: 2,
+    loseScore: -1,
+    skipScore: -1,
+  });
 
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <br />
-      &gt;= 50
-    </>
-  ),
-  arrowText: "max 3",
-  winScore: 3,
-  loseScore: -1,
-  skipScore: -1,
-});
+  cardData.push({
+    task: (
+      <>
+        Gooi
+        <br />
+        &gt;= 50
+      </>
+    ),
+    arrowText: "max 3",
+    winScore: 3,
+    loseScore: -1,
+    skipScore: -1,
+  });
 
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <br />
-      &gt;= 60
-    </>
-  ),
-  arrowText: "max 3",
-  winScore: 3,
-  loseScore: -1,
-  skipScore: 0,
-});
+  cardData.push({
+    task: (
+      <>
+        Gooi
+        <br />
+        &gt;= 60
+      </>
+    ),
+    arrowText: "max 3",
+    winScore: 3,
+    loseScore: -1,
+    skipScore: 0,
+  });
 
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <br />
-      &gt;= 70
-    </>
-  ),
-  arrowText: "max 3",
-  winScore: 4,
-  loseScore: -1,
-  skipScore: 0,
-});
+  cardData.push({
+    task: (
+      <>
+        Gooi
+        <br />
+        &gt;= 70
+      </>
+    ),
+    arrowText: "max 3",
+    winScore: 4,
+    loseScore: -1,
+    skipScore: 0,
+  });
 
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <br />
-      &gt;= 80
-    </>
-  ),
-  arrowText: "max 3",
-  winScore: 4,
-  loseScore: -1,
-  skipScore: 0,
+  cardData.push({
+    task: (
+      <>
+        Gooi
+        <br />
+        &gt;= 80
+      </>
+    ),
+    arrowText: "max 3",
+    winScore: 4,
+    loseScore: -1,
+    skipScore: 0,
+  });
 });
 
 cardData.push({
@@ -239,19 +282,21 @@ cardData.push({
 });
 
 // Named
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <br />
-      25 of 50
-      <SubTitle name={"(Bull)"} />
-    </>
-  ),
-  arrowText: "max 6",
-  winScore: 3,
-  loseScore: -1,
-  skipScore: 0,
+Array.from(Array(2)).forEach(() => {
+  cardData.push({
+    task: (
+      <>
+        Gooi
+        <br />
+        25 of 50
+        <SubTitle name={"(Bull)"} />
+      </>
+    ),
+    arrowText: "max 6",
+    winScore: 3,
+    loseScore: -1,
+    skipScore: 0,
+  });
 });
 
 cardData.push({
@@ -331,7 +376,7 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 20,
-  loseScore: -1,
+  loseScore: 0,
   skipScore: 0,
 });
 
@@ -345,7 +390,7 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 5,
+  winScore: 6,
   loseScore: -1,
   skipScore: 0,
 });
@@ -367,7 +412,7 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 25,
-  loseScore: -1,
+  loseScore: 0,
   skipScore: 0,
 });
 
@@ -388,7 +433,7 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 20,
-  loseScore: -1,
+  loseScore: 0,
   skipScore: 0,
 });
 
@@ -420,7 +465,7 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 15,
-  loseScore: -1,
+  loseScore: 0,
   skipScore: 0,
 });
 
@@ -435,7 +480,7 @@ cardData.push({
   ),
   arrowText: "3",
   winScore: 25,
-  loseScore: -1,
+  loseScore: 0,
   skipScore: 0,
 });
 
@@ -577,8 +622,30 @@ cardData.push({
   skipScore: 0,
 });
 
-// Checkout
-Array.from(Array(40)).forEach(() => {
+
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <SubTitle
+        name={
+          <>
+            &gt; 100 en &lt; 150
+            <br />
+            (Low Ton)
+          </>
+        }
+      />
+    </>
+  ),
+  arrowText: "max 6",
+  winScore: 3,
+  loseScore: -1,
+  skipScore: 0,
+});
+
+// Add 40 random Checkout
+Array.from(Array(50)).forEach(() => {
   const value = 2 + Math.floor(Math.random() * 140);
   let name = "";
   if (value === 25) name = "Devil's Finish";
