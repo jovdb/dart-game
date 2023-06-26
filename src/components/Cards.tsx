@@ -6,6 +6,10 @@ import styles from "./Cards.module.css";
 import useResizeObserver from "use-resize-observer";
 import { useMemo, useState } from "react";
 import { fitInRect, shrinkRect } from "../math";
+import { animationFlipDuration } from "@/config";
+
+const waitAsync = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function Cards() {
   const {
@@ -60,10 +64,16 @@ export default function Cards() {
     <div
       className={styles.app}
       style={{ pointerEvents: isBlocked ? "none" : "auto" }}
-      onClick={() => {
-        // Close Both
-        if (isChallengeFlipped) closeChallengeCard();
-        if (isThrowFlipped) closeThrowCard();
+      onClick={async () => {
+        setIsBlocked((prev) => prev + 1);
+        try {
+          // Close Both
+          if (isChallengeFlipped) closeChallengeCard();
+          if (isThrowFlipped) closeThrowCard();
+          await waitAsync(animationFlipDuration * 1.5);
+        } finally {
+          setIsBlocked((prev) => prev - 1);
+        }
       }}
     >
       <div></div>
@@ -91,22 +101,22 @@ export default function Cards() {
                   flipped={isChallengeFlipped}
                   onClick={async (e) => {
                     e.stopPropagation();
-                    if (isThrowFlipped) {
-                      closeThrowCard();
-                      await new Promise((resolve) => {
-                        setTimeout(resolve, 800);
-                      });
+                    setIsBlocked((prev) => prev + 1);
+                    try {
+                      if (isThrowFlipped) {
+                        closeThrowCard();
+                        await waitAsync(animationFlipDuration * 1.5);
+                      }
+                      if (isChallengeFlipped) {
+                        closeChallengeCard();
+                        await waitAsync(animationFlipDuration * 1.5);
+                      }
+
+                      nextChallengeCard();
+                      await waitAsync(animationFlipDuration);
+                    } finally {
+                      setIsBlocked((prev) => prev - 1);
                     }
-                    if (isChallengeFlipped) {
-                      closeChallengeCard();
-                      await new Promise((resolve) => {
-                        setTimeout(resolve, 800);
-                      });
-                    }
-                    nextChallengeCard();
-                  }}
-                  onAnimation={(isBusy) => {
-                    setIsBlocked((prev) => (isBusy ? prev + 1 : prev - 1));
                   }}
                 />
               </span>
@@ -117,22 +127,22 @@ export default function Cards() {
                   flipped={isThrowFlipped}
                   onClick={async (e) => {
                     e.stopPropagation();
-                    if (isChallengeFlipped) {
-                      closeChallengeCard();
-                      await new Promise((resolve) => {
-                        setTimeout(resolve, 800);
-                      });
+                    setIsBlocked((prev) => prev + 1);
+                    try {
+                      if (isChallengeFlipped) {
+                        closeChallengeCard();
+                        await waitAsync(animationFlipDuration * 1.5);
+                      }
+                      if (isThrowFlipped) {
+                        closeThrowCard();
+                        await waitAsync(animationFlipDuration * 1.5);
+                      }
+
+                      nextThrowCard();
+                      await waitAsync(animationFlipDuration);
+                    } finally {
+                      setIsBlocked((prev) => prev - 1);
                     }
-                    if (isThrowFlipped) {
-                      closeThrowCard();
-                      await new Promise((resolve) => {
-                        setTimeout(resolve, 800);
-                      });
-                    }
-                    nextThrowCard();
-                  }}
-                  onAnimation={(isBusy) => {
-                    setIsBlocked((prev) => (isBusy ? prev + 1 : prev - 1));
                   }}
                 />
               </span>
