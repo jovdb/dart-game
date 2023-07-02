@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import Card from "./Card";
 import CardFace from "./CardFace";
 import dartImg from "../../public/dart.png";
@@ -71,9 +71,10 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
   );
 }
 
-export default function ThrowDeck(props: IThrowProps) {
+export default forwardRef(function ThrowDeck(props: IThrowProps, ref: React.Ref<HTMLDivElement>) {
   return (
     <Card
+      ref={ref}
       frontFace={<ThrowCardFront {...props} />}
       backFace={<CardBack title="SmijtKaart" backgroundColor="#f0c7ff" />}
       flipped={props.flipped}
@@ -81,4 +82,4 @@ export default function ThrowDeck(props: IThrowProps) {
       showDeck
     ></Card>
   );
-}
+});

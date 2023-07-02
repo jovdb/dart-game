@@ -1,3 +1,4 @@
+"use client";
 import dynamic from "next/dynamic";
 
 const ThrowDeck = dynamic(() => import("@/components/ThrowDeck"), {
@@ -5,9 +6,11 @@ const ThrowDeck = dynamic(() => import("@/components/ThrowDeck"), {
 });
 
 import { checkoutCards } from "@/stores/checkouts-cards";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { animationFlipDuration } from "@/config";
 import { waitAsync } from "@/async";
+import useResizeObserver from "use-resize-observer";
+import { fitInRect, shrinkRect } from "@/math";
 
 function nextCard() {
   return checkoutCards[Math.floor(Math.random() * checkoutCards.length)];
@@ -18,13 +21,39 @@ export default function Home() {
   const [flipped, setFlipped] = useState(false);
   const [isBlocked, setIsBlocked] = useState(0);
 
+  const {
+    ref: contentRef,
+    width: cardsWidth = 1,
+    height: cardsHeight = 1,
+  } = useResizeObserver<HTMLSpanElement>();
+
+  const {
+    ref: pageRef,
+    width: contentWidth = 1,
+    height: contentHeight = 1,
+  } = useResizeObserver<HTMLDivElement>();
+
+  const transform = useMemo(() => {
+    const cardSize = { width: cardsWidth, height: cardsHeight };
+    const targetRect = shrinkRect(
+      {
+        width: contentWidth,
+        height: contentHeight,
+        top: 0,
+        left: 0,
+      },
+      50,
+      30,
+      50,
+      30
+    );
+    return fitInRect(cardSize, targetRect);
+  }, [cardsHeight, cardsWidth, contentHeight, contentWidth]);
+
   return (
     <div
+      ref={pageRef}
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
         position: "absolute",
         top: "0",
         left: "0",
@@ -33,9 +62,9 @@ export default function Home() {
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        pointerEvents: isBlocked ? "none" : "auto"
+        pointerEvents: isBlocked ? "none" : "auto",
       }}
-      onClick={async(e) => {
+      onClick={async (e) => {
         setIsBlocked((prev) => prev + 1);
         try {
           e.stopPropagation();
@@ -49,28 +78,39 @@ export default function Home() {
         }
       }}
     >
-      <ThrowDeck
-        task={checkoutCard.task}
-        winScore={checkoutCard.winScore}
-        arrowText={checkoutCard.arrowText}
-        flipped={flipped}
-        onClick={async(e) => {
-          setIsBlocked((prev) => prev + 1);
-          try {
-            e.stopPropagation();
-            // Close Both
-            if (flipped) {
-              setFlipped(false);
-              await waitAsync(animationFlipDuration * 1.5);
-            }
-            setCheckOutCard(nextCard());
-            setFlipped(true);
-            await waitAsync(animationFlipDuration * 1.5);
-          } finally {
-            setIsBlocked((prev) => prev - 1);
-          }
+      <div
+        ref={contentRef}
+        style={{
+          position: "absolute",
+          transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
+          transformOrigin: "0 0",
         }}
-      />
+        >
+        
+          <ThrowDeck
+            task={checkoutCard.task}
+            winScore={checkoutCard.winScore}
+            arrowText={checkoutCard.arrowText}
+            flipped={flipped}
+            onClick={async (e) => {
+              setIsBlocked((prev) => prev + 1);
+              try {
+                e.stopPropagation();
+                // Close Both
+                if (flipped) {
+                  setFlipped(false);
+                  await waitAsync(animationFlipDuration * 1.5);
+                }
+                setCheckOutCard(nextCard());
+                setFlipped(true);
+                await waitAsync(animationFlipDuration * 1.5);
+              } finally {
+                setIsBlocked((prev) => prev - 1);
+              }
+            }}
+          />
+      
+      </div>
     </div>
   );
 }

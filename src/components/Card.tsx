@@ -1,12 +1,12 @@
 import { usePrevious } from "@/hooks/usePrevious";
 import clsx from "clsx";
-import { ReactNode, useCallback } from "react";
+import { ReactNode, forwardRef, useCallback } from "react";
 
 import { useEffectEvent } from "../hooks/useEffectEvent";
 import { animationFlipDuration } from "@/config";
 type CardState = "top" | "flipped" | "bottom";
 
-export default function Card({
+export default forwardRef(function Card({
   frontFace,
   backFace,
   showDeck,
@@ -18,7 +18,7 @@ export default function Card({
   showDeck: boolean;
   flipped: boolean;
   onClick: (e: React.MouseEvent) => unknown;
-}) {
+}, ref: React.Ref<HTMLDivElement>) {
   const getState = useCallback<(flipped: boolean) => CardState>(
     (flipped) => {
       if (flipped) return "flipped";
@@ -52,7 +52,7 @@ export default function Card({
   ]);
 
   return (
-    <div className={className} style={style}>
+    <div className={className} style={style} ref={ref}>
       {showDeck && <div className={"card_deck"}>{backFace}</div>}
       <div className={"card_move"}>
         <div className={"card_group"}>
@@ -66,4 +66,4 @@ export default function Card({
       </div>
     </div>
   );
-}
+});
