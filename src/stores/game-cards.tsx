@@ -1,16 +1,7 @@
-import { ReactNode } from "react";
 import { isChallengeCardData, isThrowCardData, CardData } from "./cardState";
+import { SubTitle } from "./SubTitle";
 
 const cardData: CardData[] = [];
-
-function SubTitle({ name }: { name: ReactNode }) {
-  return (
-    <>
-      <br />
-      <span style={{ fontSize: "0.65em" }}>{name}</span>
-    </>
-  );
-}
 
 // *
 Array.from(Array(20)).forEach((_, index) => {

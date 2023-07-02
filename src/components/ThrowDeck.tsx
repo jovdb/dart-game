@@ -13,7 +13,7 @@ import { CardBack } from "./CardBack";
 
 interface IThrowProps {
   task: ReactNode;
-  winScore: number;
+  winScore?: number;
   arrowText: string;
   flipped: boolean;
   onClick(e: React.MouseEvent): unknown;
@@ -37,29 +37,36 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
       }}
     >
       <div className={styles["throw-card_task"]}>{task}</div>
-      <div className={styles["throw-card_score"]}>
-        <RoundButton style={{ backgroundColor: "var(--color-green)" }}>
+      {!!winScore && (
+        <div className={styles["throw-card_score"]}>
+          <RoundButton style={{ backgroundColor: "var(--color-green)" }}>
+            <Image
+              src={thumbUpImg}
+              alt=""
+              style={{
+                height: "calc(var(--card-height) * 0.07)",
+                width: "auto",
+              }}
+            />
+          </RoundButton>{" "}
+          = {winScore < 0 ? "-" : "+"} {winScore}
+        </div>
+      )}
+      {!!arrowText && (
+        <div className={styles["throw-card_darts"]}>
+          {arrowText}
           <Image
-            src={thumbUpImg}
+            src={dartImg}
             alt=""
-            style={{ height: "calc(var(--card-height) * 0.07)", width: "auto" }}
+            style={{
+              width: "0.85em",
+              height: "auto",
+              margin: "auto",
+              transform: "translateY(3px)",
+            }}
           />
-        </RoundButton>{" "}
-        = {winScore < 0 ? "-" : "+"} {winScore}
-      </div>
-      <div className={styles["throw-card_darts"]}>
-        {arrowText}
-        <Image
-          src={dartImg}
-          alt=""
-          style={{
-            width: "0.85em",
-            height: "auto",
-            margin: "auto",
-            transform: "translateY(3px)",
-          }}
-        />
-      </div>
+        </div>
+      )}
     </CardFace>
   );
 }

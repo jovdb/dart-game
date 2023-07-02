@@ -1,3 +1,5 @@
-## Cards for a dart game I created
+## Online demo
 
-https://jovdb.github.io/dart-game/
+- [Game cards](https://jovdb.github.io/dart-game/)
+
+- [Checkout cards](https://jovdb.github.io/dart-game/checkouts)

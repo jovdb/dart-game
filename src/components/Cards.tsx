@@ -7,9 +7,7 @@ import useResizeObserver from "use-resize-observer";
 import { useMemo, useState } from "react";
 import { fitInRect, shrinkRect } from "../math";
 import { animationFlipDuration } from "@/config";
-
-const waitAsync = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+import { waitAsync } from "@/async";
 
 export default function Cards() {
   const {
@@ -76,8 +74,7 @@ export default function Cards() {
         }
       }}
     >
-      <div></div>
-      <div className={styles.content} ref={contentRef}>
+       <div className={styles.content} ref={contentRef}>
         {
           <span
             style={{
@@ -150,7 +147,6 @@ export default function Cards() {
           </span>
         }
       </div>
-      <div></div>
     </div>
   );
 }

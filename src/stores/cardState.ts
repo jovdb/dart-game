@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { create } from 'zustand'
-import { challengeCards, throwCards } from './card-data';
+import { challengeCards, throwCards } from './game-cards';
 
 export interface IThrowCard {
   task: ReactNode;
