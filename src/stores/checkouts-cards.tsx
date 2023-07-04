@@ -1,9 +1,8 @@
 import { checkoutTable } from "./checkout-table";
 
-const cardData: any[] = [];
-
-Object.entries(checkoutTable).forEach(([score, throws]) => {
-  cardData.push({
+export const checkoutCards = Object.entries(checkoutTable).map(([score, throws]) => {
+  return {
+    checkoutValue: parseInt(score, 10),
     task: (
       <>
         Checkout
@@ -25,7 +24,5 @@ Object.entries(checkoutTable).forEach(([score, throws]) => {
     ),
     arrowText: "",
     winScore: 0,
-  });
+  };
 });
-
-export const checkoutCards = cardData;
