@@ -13,14 +13,16 @@ import useResizeObserver from "use-resize-observer";
 import { fitInRect, shrinkRect } from "@/math";
 import CheckoutTable from "../checkout-table";
 import { ICheckoutTableRef } from "../checkout-table/CheckoutTable";
+import CheckoutDeck from "@/components/CheckoutDeck";
 
 function nextCard() {
   return checkoutCards[Math.floor(Math.random() * checkoutCards.length)];
 }
 
 export default function Home() {
-  const [checkoutCard, setCheckOutCard] = useState(() => nextCard());
+  const [checkoutCard, setCheckOutCard] = useState(checkoutCards[0]);
   const [flipped, setFlipped] = useState(false);
+  // prevent clicks during animation
   const [isBlocked, setIsBlocked] = useState(0);
   const [showDropDownScore, setShowDropDownScore] = useState(0);
 
@@ -92,50 +94,8 @@ export default function Home() {
           transformOrigin: "0 0",
         }}
       >
-        <ThrowDeck
-          task={
-            <>
-              {checkoutCard.task}
-              <svg
-                fill="#000000"
-                version="1.1"
-                width="32px"
-                height="32px"
-                viewBox="0 0 416.979 416.979"
-                style={{ marginTop: "0.3em" }}
-                onClick={async (e) => {
-                  e.stopPropagation();
-                  setIsBlocked((prev) => prev + 1);
-                  try {
-                    e.stopPropagation();
-                    if (flipped) {
-                      const checkoutValue = checkoutCard.checkoutValue;
-
-                      checkoutTableRef.current?.scrollIntoView(checkoutValue);
-
-                      await waitAsync(20);
-                      setShowDropDownScore(checkoutValue);
-                      await waitAsync(animationFlipDuration);
-                    }
-                  } finally {
-                    setIsBlocked((prev) => prev - 1);
-                  }
-                }}
-              >
-                <g>
-                  <path
-                    d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85
-		c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786
-		c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576
-		c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765
-		c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"
-                  />
-                </g>
-              </svg>
-            </>
-          }
-          winScore={checkoutCard.winScore}
-          arrowText={checkoutCard.arrowText}
+        <CheckoutDeck
+          task={checkoutCard.task}
           flipped={flipped}
           onClick={async (e) => {
             setIsBlocked((prev) => prev + 1);
@@ -153,9 +113,24 @@ export default function Home() {
               setIsBlocked((prev) => prev - 1);
             }
           }}
+          onInfoClick={async () => {
+            setIsBlocked((prev) => prev + 1);
+            try {
+              if (flipped) {
+                const checkoutValue = checkoutCard.checkoutValue;
+
+                checkoutTableRef.current?.scrollIntoView(checkoutValue);
+
+                await waitAsync(20);
+                setShowDropDownScore(checkoutValue);
+                await waitAsync(animationFlipDuration);
+              }
+            } finally {
+              setIsBlocked((prev) => prev - 1);
+            }
+          }}
         />
       </div>
-
       <div
         style={{
           position: "absolute",
