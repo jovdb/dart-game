@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
 import { ReactNode } from "react";
@@ -53,8 +54,10 @@ function ChallengeCardFront({
               background: "var(--color-green)",
             }}
           >
-            <Image
-              src={thumbUpImg}
+            <img
+              src={thumbUpImg.src}
+              width={thumbUpImg.width}
+              height={thumbUpImg.height}
               alt=""
               style={{
                 height: "calc(var(--card-height) * 0.07)",
@@ -71,8 +74,10 @@ function ChallengeCardFront({
               background: "var(--color-red)",
             }}
           >
-            <Image
-              src={thumbUpImg}
+            <img
+              src={thumbUpImg.src}
+              width={thumbUpImg.width}
+              height={thumbUpImg.height}
               alt=""
               style={{
                 height: "calc(var(--card-height) * 0.07)",
@@ -90,13 +95,16 @@ function ChallengeCardFront({
               background: "transparent",
             }}
           >
-            <Image
-              src={unavailableImg}
+            <img
+              src={unavailableImg.src}
+              width={unavailableImg.width}
+              height={unavailableImg.height}
               alt=""
               style={{
                 height: "calc(var(--card-height) * 0.1)",
                 width: "auto",
-                transform: "translate(calc(var(--card-height) * -0.015), calc(var(--card-height) * -0.01))"
+                transform:
+                  "translate(calc(var(--card-height) * -0.015), calc(var(--card-height) * -0.01))",
               }}
             />
           </RoundButton>{" "}
@@ -106,8 +114,10 @@ function ChallengeCardFront({
       </div>
       <div className={styles["challenge-card_darts"]}>
         {arrowText}
-        <Image
-          src={dartImg}
+        <img
+          src={dartImg.src}
+          width={dartImg.width}
+          height={dartImg.height}
           alt=""
           style={{
             width: "0.85em",

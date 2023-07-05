@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
 import { ReactNode, forwardRef } from "react";
@@ -40,8 +41,10 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
       {!!winScore && (
         <div className={styles["throw-card_score"]}>
           <RoundButton style={{ backgroundColor: "var(--color-green)" }}>
-            <Image
-              src={thumbUpImg}
+            <img
+              src={thumbUpImg.src}
+              width={thumbUpImg.width}
+              height={thumbUpImg.height}
               alt=""
               style={{
                 height: "calc(var(--card-height) * 0.07)",
@@ -55,8 +58,10 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
       {!!arrowText && (
         <div className={styles["throw-card_darts"]}>
           {arrowText}
-          <Image
-            src={dartImg}
+          <img
+            src={dartImg.src}
+            width={dartImg.width}
+            height={dartImg.height}
             alt=""
             style={{
               width: "0.85em",
@@ -71,7 +76,10 @@ function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
   );
 }
 
-export default forwardRef(function ThrowDeck(props: IThrowProps, ref: React.Ref<HTMLDivElement>) {
+export default forwardRef(function ThrowDeck(
+  props: IThrowProps,
+  ref: React.Ref<HTMLDivElement>
+) {
   return (
     <Card
       ref={ref}

@@ -1,7 +1,14 @@
 "use client";
 import { checkoutTable } from "@/stores/checkout-table";
-import { fredokaFont } from ".";
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { Fredoka } from "@next/font/google";
+import { forwardRef, useImperativeHandle, useRef } from "react";
+
+// If loading a variable font, you don't need to specify the font weight
+const fredokaFont = Fredoka({
+  subsets: ["latin"],
+  // default, can also use "swap" to ensure custom font always shows
+  display: "optional",
+});
 
 export interface ICheckoutTableRef {
   scrollIntoView(checkoutValue: number): void;

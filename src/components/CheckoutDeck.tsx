@@ -1,11 +1,12 @@
 "use client";
 import { ReactNode, forwardRef } from "react";
+import { Fredoka } from "@next/font/google";
+
 import Card from "./Card";
 import CardFace from "./CardFace";
-
-import { Fredoka } from "@next/font/google";
-import styles from "./CheckoutDeck.module.css";
 import { CardBack } from "./CardBack";
+
+import styles from "./CheckoutDeck.module.css";
 
 interface ICheckoutProps {
   task: ReactNode;

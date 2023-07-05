@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
 import CardFace from "./CardFace";
@@ -36,8 +37,10 @@ export function CardBack({
       >
         {title}
       </div>
-      <Image
-        src={dancingDucksImg}
+      <img
+        src={dancingDucksImg.src}
+        width={dancingDucksImg.width}
+        height={dancingDucksImg.height}
         alt=""
         style={{
           width: "calc(100% - 20px)",
