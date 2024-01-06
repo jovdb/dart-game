@@ -89,35 +89,9 @@ export default function Cards() {
                 display: "flex",
                 // flexDirection: "row-reverse",
                 textAlign: "center",
-                flexDirection: showVertical ? "column-reverse" : "row-reverse",
+                flexDirection: showVertical ? "column" : "row",
               }}
             >
-              <span style={{ display: "inline-block", margin: "30px 20px" }}>
-                <ChallengeDeck
-                  {...challengeCardInfo}
-                  flipped={isChallengeFlipped}
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    setIsBlocked((prev) => prev + 1);
-                    try {
-                      if (isThrowFlipped) {
-                        closeThrowCard();
-                        await waitAsync(animationFlipDuration * 1.5);
-                      }
-                      if (isChallengeFlipped) {
-                        closeChallengeCard();
-                        await waitAsync(animationFlipDuration * 1.5);
-                      }
-
-                      nextChallengeCard();
-                      await waitAsync(animationFlipDuration);
-                    } finally {
-                      setIsBlocked((prev) => prev - 1);
-                    }
-                  }}
-                />
-              </span>
-
               <span style={{ display: "inline-block", margin: "30px 20px" }}>
                 <ThrowDeck
                   {...throwCardInfo}
@@ -136,6 +110,32 @@ export default function Cards() {
                       }
 
                       nextThrowCard();
+                      await waitAsync(animationFlipDuration);
+                    } finally {
+                      setIsBlocked((prev) => prev - 1);
+                    }
+                  }}
+                />
+              </span>
+
+              <span style={{ display: "inline-block", margin: "30px 20px" }}>
+                <ChallengeDeck
+                  {...challengeCardInfo}
+                  flipped={isChallengeFlipped}
+                  onClick={async (e) => {
+                    e.stopPropagation();
+                    setIsBlocked((prev) => prev + 1);
+                    try {
+                      if (isThrowFlipped) {
+                        closeThrowCard();
+                        await waitAsync(animationFlipDuration * 1.5);
+                      }
+                      if (isChallengeFlipped) {
+                        closeChallengeCard();
+                        await waitAsync(animationFlipDuration * 1.5);
+                      }
+
+                      nextChallengeCard();
                       await waitAsync(animationFlipDuration);
                     } finally {
                       setIsBlocked((prev) => prev - 1);

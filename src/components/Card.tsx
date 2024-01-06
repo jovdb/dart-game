@@ -56,12 +56,12 @@ export default forwardRef(function Card({
       {showDeck && <div className={"card_deck"}>{backFace}</div>}
       <div className={"card_move"}>
         <div className={"card_group"}>
-          <div className={"card_back"} onClick={onClickCard}>
+          <button className={"card_back"} onClick={onClickCard} tabIndex={-1}>
             {backFace}
-          </div>
-          <div className={"card_front"} onClick={onClickCard}>
+          </button>
+          <button className={"card_front"} onClick={onClickCard}>
             {frontFace}
-          </div>
+          </button>
         </div>
       </div>
     </div>

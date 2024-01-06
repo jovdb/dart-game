@@ -43,6 +43,13 @@
 .card_back {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+
+  /* Button */
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  display: block;
+  font-size: 1em;
 }
 
 .card_front {

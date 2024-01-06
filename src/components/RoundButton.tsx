@@ -16,6 +16,7 @@ export default function RoundButton({
         verticalAlign: "middle",
         ...style,
       }}
+      tabIndex={-1}
     >
       {children}
     </button>
