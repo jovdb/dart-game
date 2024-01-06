@@ -37,8 +37,56 @@ Array.from(Array(20)).forEach((_, index) => {
   });
 });
 
+// Single Shot
+cardData.push({
+  task: (
+    <>
+      Single shot
+      <br />
+      25 of 50
+      <SubTitle name="(Bull)" />
+    </>
+  ),
+  arrowText: "1",
+  winScore: 5,
+  loseScore: -1,
+  skipScore: 0,
+});
+
+// Single Shot
+cardData.push({
+  task: (
+    <>
+      Single shot
+      <br />
+      T20
+    </>
+  ),
+  arrowText: "1",
+  winScore: 5,
+  loseScore: -1,
+  skipScore: 0,
+});
+
+cardData.push({
+  task: (
+    <>
+      Single shot
+      <br />
+      T19
+    </>
+  ),
+  arrowText: "1",
+  winScore: 5,
+  loseScore: -1,
+  skipScore: 0,
+});
+
 // Doubles
-[1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16, 17, 18, 19, 20].forEach((value) => {
+[
+  1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16, 17, 18, 19,
+  20,
+].forEach((value) => {
   let name = "";
   if (value === 1) name = "Annie's Attic";
   else if (value === 3) name = "Basement";
@@ -61,7 +109,10 @@ Array.from(Array(20)).forEach((_, index) => {
 });
 
 // Triples
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 19, 20, 20, 20, 20].forEach((value) => {
+[
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 19,
+  20, 20, 20, 20,
+].forEach((value) => {
   let name = "";
   if (value === 6) name = "Devil";
 
@@ -347,7 +398,7 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 20,
+  winScore: 15,
   loseScore: 0,
   skipScore: 0,
 });
@@ -365,6 +416,21 @@ cardData.push({
   winScore: 6,
   loseScore: -1,
   skipScore: 0,
+});
+
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <SubTitle name="5, 20, 1" />
+      <br />
+      (Bed & Breakfast)
+    </>
+  ),
+  arrowText: "3",
+  winScore: 3,
+  loseScore: -2,
+  skipScore: -1,
 });
 
 cardData.push({
@@ -567,12 +633,24 @@ cardData.push({
       <SubTitle name="&gt;= 40 en &lt;= 50" />
     </>
   ),
-  arrowText: "max 6",
+  arrowText: "6",
   winScore: 2,
   loseScore: -2,
   skipScore: -1,
 });
 
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <SubTitle name="&gt;= 20 en &lt;= 40" />
+    </>
+  ),
+  arrowText: "3",
+  winScore: 2,
+  loseScore: -2,
+  skipScore: -1,
+});
 
 cardData.push({
   task: (
@@ -595,9 +673,12 @@ cardData.push({
   skipScore: 0,
 });
 
-// Add 40 random Checkout
-Array.from(Array(50)).forEach(() => {
-  const value = 41 + Math.floor(Math.random() * 100);
+// Duplicate all cards, so better proportion with the 120 checkouts
+cardData.push(...cardData);
+
+// Add 50 random Checkout
+Array.from(Array(120)).forEach((_, index) => {
+  const value = 41 + index;
   let name = "";
   if (value === 25) name = "Devil's Finish";
   if (value === 130) name = "Baby Fish";
@@ -612,7 +693,7 @@ Array.from(Array(50)).forEach(() => {
       </>
     ),
     arrowText: "max 3x3",
-    winScore: value > 100 ? 4 : (value > 80 ? 3 : 2),
+    winScore: value > 120 ? 4 : value > 80 ? 3 : 2,
     loseScore: -1,
     skipScore: 0,
   });
