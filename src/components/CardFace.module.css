@@ -13,5 +13,12 @@
   left: 50%;
   background-color: #f6f6f6;
   padding: calc(var(--card-height) * 0.05);
-  box-shadow: inset 0px 0px 0px calc(var(--card-height) * 0.035) white;
+  box-shadow: inset 0px 0px 0px calc(var(--card-height) * 0.035) #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card-face {
+    box-shadow: inset 0px 0px 0px calc(var(--card-height) * 0.035) #c8c8c8;
+    background-color: #ddd;
+  }
 }

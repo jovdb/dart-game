@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
 import { ReactNode, forwardRef } from "react";
 import Card from "./Card";
 import CardFace from "./CardFace";
@@ -11,6 +10,7 @@ import { Fredoka } from "@next/font/google";
 import styles from "./ThrowDeck.module.css";
 import RoundButton from "./RoundButton";
 import { CardBack } from "./CardBack";
+import { useIsDarkMode } from "@/hooks/useIsDarkMode";
 
 interface IThrowProps {
   task: ReactNode;
@@ -27,7 +27,7 @@ const fredokaFont = Fredoka({
   display: "optional",
 });
 
-function ThrowCardFront({ task, winScore, arrowText }: IThrowProps) {
+function ThrowCardFront({ task, winScore, arrowText }: Readonly<IThrowProps>) {
   return (
     <CardFace
       className={`${styles["throw-card"]} ${fredokaFont.className}`}
@@ -80,11 +80,14 @@ export default forwardRef(function ThrowDeck(
   props: IThrowProps,
   ref: React.Ref<HTMLDivElement>
 ) {
+  const isDarkMode = useIsDarkMode();
+  const backgroundColor = isDarkMode ? "#c571e4" : "#f0c7ff";
+  
   return (
     <Card
       ref={ref}
       frontFace={<ThrowCardFront {...props} />}
-      backFace={<CardBack title="SmijtKaart" backgroundColor="#f0c7ff" />}
+      backFace={<CardBack title="SmijtKaart" backgroundColor={backgroundColor} />}
       flipped={props.flipped}
       onClick={props.onClick}
       showDeck

@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
 import { ReactNode } from "react";
 import Card from "./Card";
 import CardFace from "./CardFace";
@@ -12,6 +11,7 @@ import { Fredoka } from "@next/font/google";
 import styles from "./ChallengeDeck.module.css";
 import RoundButton from "./RoundButton";
 import { CardBack } from "./CardBack";
+import { useIsDarkMode } from "@/hooks/useIsDarkMode";
 
 interface IChallengeProps {
   task: ReactNode;
@@ -36,7 +36,7 @@ function ChallengeCardFront({
   loseScore,
   skipScore,
   arrowText,
-}: IChallengeProps) {
+}: Readonly<IChallengeProps>) {
   return (
     <CardFace
       className={`${styles["challenge-card"]} ${fredokaFont.className}`}
@@ -131,11 +131,14 @@ function ChallengeCardFront({
   );
 }
 
-export default function ChallengeDeck(props: IChallengeProps) {
+export default function ChallengeDeck(props: Readonly<IChallengeProps>) {
+
+  const isDarkMode = useIsDarkMode();
+  const backgroundColor = isDarkMode ? "#70ce81" : "#bdffc9";
   return (
     <Card
       frontFace={<ChallengeCardFront {...props} />}
-      backFace={<CardBack title="Challenge" backgroundColor="#bdffc9" />}
+      backFace={<CardBack title="Challenge" backgroundColor={backgroundColor} />}
       flipped={props.flipped}
       onClick={props.onClick}
       showDeck

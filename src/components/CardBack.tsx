@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
 import CardFace from "./CardFace";
 import dancingDucksImg from "../../public/dance.png";
 
@@ -16,10 +15,10 @@ const fredokaFont = Fredoka({
 export function CardBack({
   title,
   backgroundColor,
-}: {
+}: Readonly<{
   title: string;
   backgroundColor: string;
-}) {
+}>) {
   return (
     <CardFace
       className={fredokaFont.className}

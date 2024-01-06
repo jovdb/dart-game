@@ -7,6 +7,7 @@ import CardFace from "./CardFace";
 import { CardBack } from "./CardBack";
 
 import styles from "./CheckoutDeck.module.css";
+import { useIsDarkMode } from "@/hooks/useIsDarkMode";
 
 interface ICheckoutProps {
   task: ReactNode;
@@ -22,7 +23,7 @@ const fredokaFont = Fredoka({
   display: "optional",
 });
 
-function CheckoutCardFront({ task, onInfoClick }: ICheckoutProps) {
+function CheckoutCardFront({ task, onInfoClick }: Readonly<ICheckoutProps>) {
   return (
     <CardFace
       className={`${styles["throw-card"]} ${fredokaFont.className}`}
@@ -65,11 +66,14 @@ export default forwardRef(function CheckoutDeck(
   props: ICheckoutProps,
   ref: React.Ref<HTMLDivElement>
 ) {
+  const isDarkMode = useIsDarkMode();
+  const backgroundColor = isDarkMode ? "#fcbec9" : "#ffc7d1";
+
   return (
     <Card
       ref={ref}
       frontFace={<CheckoutCardFront {...props} />}
-      backFace={<CardBack title="Checkout" backgroundColor="#ffc7d1" />}
+      backFace={<CardBack title="Checkout" backgroundColor={backgroundColor} />}
       flipped={props.flipped}
       onClick={props.onClick}
       showDeck
