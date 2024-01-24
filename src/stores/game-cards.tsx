@@ -330,8 +330,8 @@ Array.from(Array(2)).forEach(() => {
         <SubTitle name={"(Bull)"} />
       </>
     ),
-    arrowText: "max 6",
-    winScore: 3,
+    arrowText: "max 3",
+    winScore: 4,
     loseScore: -1,
     skipScore: 0,
   });
@@ -376,8 +376,8 @@ cardData.push({
       *20 en *3
     </>
   ),
-  arrowText: "max 6",
-  winScore: 2,
+  arrowText: "max 3",
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -545,8 +545,8 @@ cardData.push({
       *11 en *6
     </>
   ),
-  arrowText: "max 6",
-  winScore: 1,
+  arrowText: "max 3",
+  winScore: 3,
   loseScore: -1,
   skipScore: -1,
 });
@@ -592,8 +592,8 @@ cardData.push({
       />
     </>
   ),
-  arrowText: "max 6",
-  winScore: 3,
+  arrowText: "3",
+  winScore: 4,
   loseScore: -1,
   skipScore: -1,
 });
