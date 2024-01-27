@@ -1,0 +1,17 @@
+{
+  "name": "Darts Game",
+  "short_name": "Darts Game",
+  "description": "Cards for a darts game",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "334x334",
+      "type": "image/png"
+    }
+  ]
+}
