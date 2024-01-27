@@ -44,7 +44,6 @@ cardData.push({
       Single shot
       <br />
       25 of 50
-      <SubTitle name="(Bull)" />
     </>
   ),
   arrowText: "1",
@@ -54,38 +53,42 @@ cardData.push({
 });
 
 // Single Shot
-cardData.push({
-  task: (
-    <>
-      Single shot
-      <br />
-      T20
-    </>
-  ),
-  arrowText: "1",
-  winScore: 5,
-  loseScore: -1,
-  skipScore: 0,
+Array.from(Array(3)).forEach((_, index) => {
+  cardData.push({
+    task: (
+      <>
+        Single shot
+        <br />
+        T20
+      </>
+    ),
+    arrowText: "1",
+    winScore: 5,
+    loseScore: -1,
+    skipScore: 0,
+  });
 });
 
-cardData.push({
-  task: (
-    <>
-      Single shot
-      <br />
-      T19
-    </>
-  ),
-  arrowText: "1",
-  winScore: 5,
-  loseScore: -1,
-  skipScore: 0,
+Array.from(Array(2)).forEach((_, index) => {
+  cardData.push({
+    task: (
+      <>
+        Single shot
+        <br />
+        T19
+      </>
+    ),
+    arrowText: "1",
+    winScore: 5,
+    loseScore: -1,
+    skipScore: 0,
+  });
 });
 
 // Doubles
 [
-  1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16, 17, 18, 19,
-  20,
+  1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16, 17, 18, 19,
+  20, 20, 20
 ].forEach((value) => {
   let name = "";
   if (value === 1) name = "Annie's Attic";
@@ -110,7 +113,7 @@ cardData.push({
 
 // Triples
 [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 19,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 19, 19,
   20, 20, 20, 20,
 ].forEach((value) => {
   let name = "";
@@ -131,6 +134,21 @@ cardData.push({
   });
 });
 
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <br />
+      3 x 20
+    </>
+  ),
+  arrowText: "3",
+  winScore: 4,
+  loseScore: -1,
+  skipScore: 0,
+});
+
+
 // Less than
 cardData.push({
   task: (
@@ -142,7 +160,7 @@ cardData.push({
     </>
   ),
   arrowText: "3",
-  winScore: 4,
+  winScore: 5,
   loseScore: -1,
   skipScore: 0,
 });
@@ -327,7 +345,6 @@ Array.from(Array(2)).forEach(() => {
         Gooi
         <br />
         25 of 50
-        <SubTitle name={"(Bull)"} />
       </>
     ),
     arrowText: "max 3",
@@ -416,21 +433,6 @@ cardData.push({
   winScore: 6,
   loseScore: -1,
   skipScore: 0,
-});
-
-cardData.push({
-  task: (
-    <>
-      Gooi
-      <SubTitle name="5, 20, 1" />
-      <br />
-      (Bed & Breakfast)
-    </>
-  ),
-  arrowText: "3",
-  winScore: 3,
-  loseScore: -2,
-  skipScore: -1,
 });
 
 cardData.push({
@@ -574,6 +576,19 @@ cardData.push({
   ),
   arrowText: "max 6",
   winScore: 3,
+  loseScore: -1,
+  skipScore: -1,
+});
+
+cardData.push({
+  task: (
+    <>
+      Gooi
+      <SubTitle name="*18, *19, *20" />
+    </>
+  ),
+  arrowText: "max 3",
+  winScore: 5,
   loseScore: -1,
   skipScore: -1,
 });
